@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đại Lý Phân Phối Thịnh Vượng | Không Gian Triển Lãm Sản Phẩm</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Hệ thống biến màu động theo Chủ đề & Lễ hội */
+        :root {
+            --bg-primary: #09090b;
+            --bg-secondary: #121216;
+            --bg-card: rgba(24, 24, 29, 0.74);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --accent: #d4af37;
+            --accent-light: #f3e5ab;
+            --accent-glow: rgba(212, 175, 55, 0.35);
+            --border-color: rgba(212, 175, 55, 0.25);
+            --aurora-1: rgba(212, 175, 55, 0.15);
+            --aurora-2: rgba(168, 130, 40, 0.09);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        .font-serif-luxury {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Hiệu ứng chữ ánh kim chuyển động */
+        .text-gold-shimmer {
+            background: linear-gradient(
+                110deg,
+                var(--accent) 20%,
+                var(--accent-light) 45%,
+                #ffffff 50%,
+                var(--accent-light) 55%,
+                var(--accent) 80%
+            );
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 5s linear infinite;
+        }
+
+        @keyframes shimmerText {
+            to { background-position: 250% center; }
+        }
+
+        /* Lớp Cực Quang Sóng Lụa */
+        .aurora-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+        .aurora-layer.active { opacity: 1; }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(115px);
+            animation: floatAurora 18s ease-in-out infinite alternate;
+        }
+        .aurora-blob-1 {
+            width: 55vw;
+            height: 55vw;
+            top: -15%;
+            left: -10%;
+            background: radial-gradient(circle, var(--aurora-1), transparent 70%);
+        }
+        .aurora-blob-2 {
+            width: 50vw;
+            height: 50vw;
+            bottom: -10%;
+            right: -10%;
+            background: radial-gradient(circle, var(--aurora-2), transparent 70%);
+            animation-delay: -7s;
+        }
+        @keyframes floatAurora {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(6%, 8%) scale(1.08) rotate(8deg); }
+            100% { transform: translate(-4%, 4%) scale(0.96) rotate(-5deg); }
+        }
+
+        /* Trang trí góc Lễ Hội (Đèn lồng Tết & Vòng nguyệt quế Noel) */
+        .lantern-sway {
+            transform-origin: top center;
+            animation: lanternSwing 4.2s ease-in-out infinite alternate;
+        }
+        @keyframes lanternSwing {
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
+        }
+
+        /* Thẻ sản phẩm Glassmorphism & 3D Tilt */
+        .product-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        body[data-card-effect="glow"] .product-card:hover {
+            box-shadow: 0 18px 45px -10px var(--accent-glow), 0 0 24px var(--accent-glow);
+            border-color: var(--accent);
+            transform: translateY(-6px);
+        }
+
+        body[data-card-effect="zoom"] .product-card:hover {
+            transform: scale(1.03) translateY(-4px);
+            box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.35);
+            border-color: var(--accent);
+        }
+
+        body[data-card-effect="tilt"] .product-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 25px 50px -12px var(--accent-glow);
+        }
+
+        /* Viền tuyết phủ đặc biệt khi bật chế độ Giáng Sinh */
+        body[data-festival="christmas"] .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+            border-radius: 999px;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .card-shine {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.15), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            z-index: 2;
+        }
+        .product-card:hover .card-shine { opacity: 1; }
+
+        /* Scroll Reveal */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Thanh đo độ lưu hương */
+        .longevity-bar-fill {
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            box-shadow: 0 0 14px var(--accent-glow);
+            transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Vòng hào quang Hero */
+        .hero-ring {
+            border: 1px solid var(--border-color);
+            animation: spinSlow 45s linear infinite;
+        }
+        .hero-ring-reverse {
+            border: 1px dashed var(--border-color);
+            animation: spinSlow 65s linear infinite reverse;
+        }
+        @keyframes spinSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    </style>
+</head>
+<body data-card-effect="tilt" data-festival="luxury" class="antialiased selection:bg-amber-500/30">
+
+    <!-- Canvas Hiệu Ứng Động Toàn Màn Hình (Hạt Vàng / Tuyết Rơi Noel / Hoa Mai Đào & Pháo Hoa Tết) -->
+    <canvas id="festivalCanvas" class="fixed inset-0 pointer-events-none z-20 transition-opacity duration-700"></canvas>
+
+    <!-- Lớp Ánh Sáng Cực Quang -->
+    <div id="auroraLayer" class="aurora-layer active">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TRANG TRÍ GÓC LỄ HỘI (ĐÈN LỒNG TẾT / HỌA TIẾT GIÁNG SINH)              -->
+    <!-- ===================================================================== -->
+    <!-- Đèn lồng Tết Nguyên Đán 2 bên góc trên -->
+    <div id="tetDecorations" class="fixed top-20 inset-x-0 pointer-events-none z-30 hidden justify-between px-3 sm:px-8">
+        <div class="lantern-sway flex flex-col items-center">
+            <div class="w-0.5 h-6 bg-amber-400"></div>
+            <div class="w-11 h-14 sm:w-14 sm:h-16 rounded-full bg-gradient-to-b from-red-600 via-red-700 to-red-900 border-2 border-amber-400 shadow-[0_0_25px_rgba(239,68,68,0.6)] flex items-center justify-center relative">
+                <span class="font-serif-luxury text-amber-300 font-bold text-lg sm:text-xl">Phúc</span>
+            </div>
+            <div class="w-6 h-1.5 bg-amber-400 rounded-full -mt-0.5"></div>
+            <div class="flex gap-1 mt-0.5">
+                <span class="w-0.5 h-5 bg-amber-400"></span>
+                <span class="w-0.5 h-6 bg-red-500"></span>
+                <span class="w-0.5 h-5 bg-amber-400"></span>
+            </div>
+        </div>
+
+        <div class="lantern-sway flex flex-col items-center" style="animation-delay: -1.8s;">
+            <div class="w-0.5 h-6 bg-amber-400"></div>
+            <div class="w-11 h-14 sm:w-14 sm:h-16 rounded-full bg-gradient-to-b from-red-600 via-red-700 to-red-900 border-2 border-amber-400 shadow-[0_0_25px_rgba(239,68,68,0.6)] flex items-center justify-center relative">
+                <span class="font-serif-luxury text-amber-300 font-bold text-lg sm:text-xl">Lộc</span>
+            </div>
+            <div class="w-6 h-1.5 bg-amber-400 rounded-full -mt-0.5"></div>
+            <div class="flex gap-1 mt-0.5">
+                <span class="w-0.5 h-5 bg-amber-400"></span>
+                <span class="w-0.5 h-6 bg-red-500"></span>
+                <span class="w-0.5 h-5 bg-amber-400"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dải đèn & hoa tuyết Giáng Sinh 2 bên góc trên -->
+    <div id="christmasDecorations" class="fixed top-20 inset-x-0 pointer-events-none z-30 hidden justify-between px-4 sm:px-10">
+        <div class="lantern-sway flex flex-col items-center">
+            <div class="w-0.5 h-5 bg-emerald-300/70"></div>
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-500 to-teal-900 border border-white/50 shadow-[0_0_22px_rgba(52,211,153,0.55)] flex items-center justify-center text-white">
+                <i data-lucide="snowflake" class="w-5 h-5 animate-spin" style="animation-duration: 12s;"></i>
+            </div>
+        </div>
+        <div class="lantern-sway flex flex-col items-center" style="animation-delay: -2s;">
+            <div class="w-0.5 h-5 bg-red-300/70"></div>
+            <div class="w-11 h-11 rounded-full bg-gradient-to-br from-rose-500 to-red-800 border border-white/50 shadow-[0_0_22px_rgba(244,63,94,0.55)] flex items-center justify-center text-amber-200">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- THANH ĐIỀU HƯỚNG TỐI GIẢN (KHÔNG GIÁ, KHÔNG GIỎ HÀNG, KHÔNG LIÊN HỆ)  -->
+    <!-- ===================================================================== -->
+    <header class="fixed top-0 inset-x-0 z-40 transition-all duration-500 backdrop-blur-md border-b"
+            style="background-color: color-mix(in srgb, var(--bg-primary) 80%, transparent); border-color: var(--border-color);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2">
+            <!-- Thương hiệu -->
+            <a href="#hero" class="flex items-center gap-3 group shrink-0">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center border transition-transform duration-500 group-hover:rotate-45"
+                     style="border-color: var(--accent); background: radial-gradient(circle, var(--accent-glow), transparent);">
+                    <i data-lucide="crown" class="w-5 h-5" style="color: var(--accent);"></i>
+                </div>
+                <div>
+                    <span class="font-serif-luxury text-xl sm:text-2xl font-bold tracking-wide block leading-none" style="color: var(--text-primary);">
+                        Thịnh Vượng
+                    </span>
+                    <span id="headerSubtitleBadge" class="text-[10px] uppercase tracking-[0.22em] block mt-1" style="color: var(--accent);">
+                        Triển Lãm Trực Tuyến
+                    </span>
+                </div>
+            </a>
+
+            <!-- Menu Điều Hướng Nhanh -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium">
+                <a href="#hero" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Trang Bìa</a>
+                <a href="#showcase" onclick="filterProducts('all')" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Tất Cả</a>
+                <a href="#showcase" onclick="filterProducts('nuoc-hoa-nam')" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Nước Hoa Nam</a>
+                <a href="#showcase" onclick="filterProducts('nuoc-hoa-nu')" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Nước Hoa Nữ</a>
+                <a href="#showcase" onclick="filterProducts('mat-na')" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Mặt Nạ Dưỡng Da</a>
+                <a href="#showcase" onclick="filterProducts('may-loc-nuoc')" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Máy Lọc Ion Kiềm</a>
+                <a href="#showroom-location" class="transition-opacity hover:opacity-100 opacity-80" style="color: var(--text-primary);">Địa Chỉ</a>
+            </nav>
+
+            <!-- Cụm nút chức năng: Quản Lý Sản Phẩm & Trang Trí Lễ Hội -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="openProductManager()"
+                        class="flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium border transition-all duration-300 hover:scale-105"
+                        style="border-color: var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+                    <i data-lucide="folder-plus" class="w-4 h-4" style="color: var(--accent);"></i>
+                    <span class="hidden sm:inline">Quản Lý Sản Phẩm</span>
+                    <span class="sm:hidden">Sản Phẩm</span>
+                </button>
+
+                <button onclick="toggleCustomizer()"
+                        class="flex items-center gap-2 px-3.5 sm:px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border transition-all duration-300 hover:scale-105 shadow-lg"
+                        style="border-color: var(--accent); background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #09090b; box-shadow: 0 0 20px var(--accent-glow);">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Trang Trí & Lễ Hội</span>
+                    <span class="sm:hidden">Lễ Hội</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 1. TRANG BÌA (HERO COVER) - ĐẠI LÝ PHÂN PHỐI THỊNH VƯỢNG              -->
+    <!-- ===================================================================== -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 overflow-hidden">
+        <!-- Vòng tròn nghệ thuật xoay chậm phía sau -->
+        <div class="hero-ring absolute top-1/2 left-1/2 w-[340px] h-[340px] sm:w-[580px] sm:h-[580px] lg:w-[760px] lg:h-[760px] rounded-full pointer-events-none opacity-45"></div>
+        <div class="hero-ring-reverse absolute top-1/2 left-1/2 w-[260px] h-[260px] sm:w-[440px] sm:h-[440px] lg:w-[600px] lg:h-[600px] rounded-full pointer-events-none opacity-35"></div>
+
+        <div id="heroParallaxContent" class="relative z-10 max-w-5xl mx-auto text-center transition-transform duration-200 ease-out">
+            <!-- Huy hiệu trạng thái lễ hội / triển lãm -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border mb-8 backdrop-blur-md reveal-item is-visible"
+                 style="border-color: var(--border-color); background: var(--bg-card);">
+                <span class="w-2 h-2 rounded-full animate-ping" style="background-color: var(--accent);"></span>
+                <span id="heroFestivalBadge" class="text-xs uppercase tracking-[0.26em] font-semibold" style="color: var(--accent);">
+                    Không Gian Triển Lãm Sản Phẩm Tinh Tuyển
+                </span>
+            </div>
+
+            <!-- Tiêu đề chính bắt buộc -->
+            <h1 class="font-serif-luxury text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08] mb-6 reveal-item is-visible">
+                <span class="block" style="color: var(--text-primary);">Đại Lý Phân Phối</span>
+                <span class="text-gold-shimmer block mt-1 pb-2">Thịnh Vượng</span>
+            </h1>
+
+            <!-- Phụ đề -->
+            <p class="max-w-2xl mx-auto text-base sm:text-lg lg:text-xl font-light leading-relaxed mb-10 reveal-item is-visible"
+               style="color: var(--text-secondary);">
+                Nơi hội tụ và tôn vinh giá trị nguyên bản của những tuyệt tác
+                <span class="font-medium" style="color: var(--text-primary);">Nước Hoa Nam & Nữ</span>,
+                <span class="font-medium" style="color: var(--text-primary);">Mặt Nạ Dưỡng Da Chuyên Sâu</span> và
+                <span class="font-medium" style="color: var(--text-primary);">Máy Lọc Nước Ion Kiềm</span>.
+            </p>
+
+            <!-- 4 Nhóm danh mục nổi bật trên trang bìa -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 max-w-5xl mx-auto mb-12 reveal-item is-visible">
+                <button onclick="navigateToCategory('nuoc-hoa-nam')"
+                        class="group p-4 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 text-left flex items-center gap-3.5"
+                        style="background: var(--bg-card); border-color: var(--border-color);">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                         style="background: var(--accent-glow); color: var(--accent);">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury text-lg font-bold" style="color: var(--text-primary);">Nước Hoa Nam</h3>
+                        <p class="text-xs" style="color: var(--text-secondary);">Bản lĩnh & Hổ phách gỗ trầm</p>
+                    </div>
+                </button>
+
+                <button onclick="navigateToCategory('nuoc-hoa-nu')"
+                        class="group p-4 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 text-left flex items-center gap-3.5"
+                        style="background: var(--bg-card); border-color: var(--border-color);">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                         style="background: var(--accent-glow); color: var(--accent);">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury text-lg font-bold" style="color: var(--text-primary);">Nước Hoa Nữ</h3>
+                        <p class="text-xs" style="color: var(--text-secondary);">Quyến rũ & Hoa cỏ tinh khiết</p>
+                    </div>
+                </button>
+
+                <button onclick="navigateToCategory('mat-na')"
+                        class="group p-4 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 text-left flex items-center gap-3.5"
+                        style="background: var(--bg-card); border-color: var(--border-color);">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                         style="background: var(--accent-glow); color: var(--accent);">
+                        <i data-lucide="flower-2" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury text-lg font-bold" style="color: var(--text-primary);">Mặt Nạ Dưỡng Da</h3>
+                        <p class="text-xs" style="color: var(--text-secondary);">Hoạt chất phục hồi chuyên sâu</p>
+                    </div>
+                </button>
+
+                <button onclick="navigateToCategory('may-loc-nuoc')"
+                        class="group p-4 rounded-2xl border backdrop-blur-md transition-all duration-300 hover:-translate-y-1 text-left flex items-center gap-3.5"
+                        style="background: var(--bg-card); border-color: var(--border-color);">
+                    <div class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
+                         style="background: var(--accent-glow); color: var(--accent);">
+                        <i data-lucide="droplets" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury text-lg font-bold" style="color: var(--text-primary);">Máy Lọc Ion Kiềm</h3>
+                        <p class="text-xs" style="color: var(--text-secondary);">Điện phân chuẩn dải pH</p>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Nút hành động trang bìa -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#showcase"
+                   class="px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-widest transition-all duration-300 hover:scale-105 flex items-center gap-3 shadow-xl"
+                   style="background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #09090b; box-shadow: 0 10px 30px var(--accent-glow);">
+                    <span>Khám Phá Bộ Sưu Tập</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4 animate-bounce"></i>
+                </a>
+                <button onclick="toggleCustomizer()"
+                        class="px-7 py-4 rounded-full font-medium text-sm border backdrop-blur-md transition-all duration-300 hover:scale-105 flex items-center gap-2.5"
+                        style="border-color: var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+                    <i data-lucide="party-popper" class="w-4 h-4" style="color: var(--accent);"></i>
+                    <span>Đổi Không Khí Giáng Sinh / Tết</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 2. KHU VỰC TRƯNG BÀY SẢN PHẨM (DỮ LIỆU THỜI GIAN THỰC CÔNG KHAI)      -->
+    <!-- ===================================================================== -->
+    <section id="showcase" class="relative z-10 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12 reveal-item">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-medium border mb-3"
+                 style="border-color: var(--border-color); background: var(--bg-card); color: var(--accent);">
+                <span id="syncStatusDot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span id="syncStatusText">Đang kết nối dữ liệu trưng bày trực tuyến...</span>
+            </div>
+            <h2 class="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl font-bold mb-4" style="color: var(--text-primary);">
+                Tuyệt Tác Trưng Bày
+            </h2>
+            <p class="text-sm sm:text-base leading-relaxed" style="color: var(--text-secondary);">
+                Chạm vào từng sản phẩm để chiêm ngưỡng thông số chi tiết, biểu đồ độ lưu hương và công nghệ vận hành.
+            </p>
+            <!-- Huy hiệu địa chỉ showroom nổi bật ngay dưới phần mở đầu khu trưng bày -->
+            <div class="mt-5 inline-flex flex-wrap items-center justify-center gap-2.5 px-4 py-2.5 rounded-2xl border backdrop-blur-md text-xs sm:text-sm"
+                 style="border-color: var(--border-color); background: var(--bg-card); color: var(--text-primary);">
+                <i data-lucide="map-pin" class="w-4 h-4 shrink-0" style="color: var(--accent);"></i>
+                <span class="opacity-75">Địa chỉ trưng bày:</span>
+                <span id="showcaseAddressBadge" class="font-semibold" style="color: var(--accent);">
+                    Số 168 Đại Lộ Võ Thị Sáu, Phường Thống Nhất, Thành Phố Biên Hòa, Tỉnh Đồng Nai
+                </span>
+                <button type="button" onclick="openDirectAddressEditor()"
+                        class="ml-1 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-transform hover:scale-105 flex items-center gap-1"
+                        style="border-color: var(--accent); color: var(--accent);">
+                    <i data-lucide="pencil" class="w-3 h-3"></i>
+                    <span>Sửa địa chỉ</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Thanh lọc danh mục & Nút thêm sản phẩm nhanh -->
+        <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-14 reveal-item" id="categoryTabs">
+            <button data-filter="all" onclick="filterProducts('all')"
+                    class="filter-btn px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border">
+                Tất Cả Bộ Sưu Tập (<span id="count-all">0</span>)
+            </button>
+            <button data-filter="nuoc-hoa-nam" onclick="filterProducts('nuoc-hoa-nam')"
+                    class="filter-btn px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2">
+                <i data-lucide="shield" class="w-4 h-4"></i>
+                <span>Nước Hoa Nam (<span id="count-nuoc-hoa-nam">0</span>)</span>
+            </button>
+            <button data-filter="nuoc-hoa-nu" onclick="filterProducts('nuoc-hoa-nu')"
+                    class="filter-btn px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Nước Hoa Nữ (<span id="count-nuoc-hoa-nu">0</span>)</span>
+            </button>
+            <button data-filter="mat-na" onclick="filterProducts('mat-na')"
+                    class="filter-btn px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2">
+                <i data-lucide="flower-2" class="w-4 h-4"></i>
+                <span>Mặt Nạ Dưỡng Da (<span id="count-mat-na">0</span>)</span>
+            </button>
+            <button data-filter="may-loc-nuoc" onclick="filterProducts('may-loc-nuoc')"
+                    class="filter-btn px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border flex items-center gap-2">
+                <i data-lucide="droplets" class="w-4 h-4"></i>
+                <span>Máy Lọc Ion Kiềm (<span id="count-may-loc-nuoc">0</span>)</span>
+            </button>
+            <button onclick="openProductManager('add')"
+                    class="px-5 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border border-dashed hover:scale-105 flex items-center gap-2"
+                    style="border-color: var(--accent); color: var(--accent); background: var(--bg-card);">
+                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                <span>Thêm Sản Phẩm Mới</span>
+            </button>
+        </div>
+
+        <!-- Lưới sản phẩm trưng bày -->
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 lg:gap-8">
+            <!-- Render động từ Firestore -->
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. THÔNG TIN ĐỊA CHỈ SHOWROOM (CHỈ ĐỊA CHỈ - KHÔNG THÔNG TIN LIÊN HỆ) -->
+    <!-- ===================================================================== -->
+    <section id="showroom-location" class="relative z-10 py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto reveal-item">
+        <div class="rounded-3xl p-8 sm:p-12 border backdrop-blur-xl relative overflow-hidden text-center"
+             style="background: var(--bg-card); border-color: var(--border-color); box-shadow: 0 25px 60px -15px rgba(0,0,0,0.3);">
+            <div class="w-14 h-14 rounded-2xl mx-auto mb-5 flex items-center justify-center border"
+                 style="border-color: var(--accent); background: var(--accent-glow); color: var(--accent);">
+                <i data-lucide="map-pin" class="w-7 h-7"></i>
+            </div>
+            <span class="text-xs uppercase tracking-[0.28em] font-semibold block mb-2" style="color: var(--accent);">
+                Không Gian Trải Nghiệm Trực Tiếp
+            </span>
+            <h2 class="font-serif-luxury text-3xl sm:text-4xl font-bold mb-4" style="color: var(--text-primary);">
+                Địa Chỉ Showroom Đại Lý Phân Phối Thịnh Vượng
+            </h2>
+            <p id="displayShowroomAddress" class="text-base sm:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-6"
+               style="color: var(--text-primary);">
+                Số 168 Đại Lộ Võ Thị Sáu, Phường Thống Nhất, Thành Phố Biên Hòa, Tỉnh Đồng Nai
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs border"
+                     style="border-color: var(--border-color); color: var(--text-secondary);">
+                    <i data-lucide="clock" class="w-3.5 h-3.5" style="color: var(--accent);"></i>
+                    <span>Thời gian mở cửa tham quan trưng bày: 08:30 – 21:00 Hàng ngày</span>
+                </div>
+                <button type="button" onclick="toggleInlineAddressEditor()"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold border transition-transform hover:scale-105"
+                        style="border-color: var(--accent); color: var(--accent); background: var(--accent-glow);">
+                    <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                    <span>Chỉnh Sửa Địa Chỉ Trực Tiếp</span>
+                </button>
+            </div>
+
+            <!-- Khung chỉnh sửa địa chỉ trực tiếp ngay trên trang -->
+            <div id="inlineAddressEditor" class="hidden mt-6 max-w-2xl mx-auto p-5 rounded-2xl border text-left space-y-3"
+                 style="background: var(--bg-primary); border-color: var(--border-color);">
+                <label class="text-xs font-bold uppercase tracking-wider block" style="color: var(--accent);">
+                    Nhập hoặc cập nhật địa chỉ Showroom (Chỉ hiển thị địa chỉ)
+                </label>
+                <textarea id="inlineAddressInput" rows="2" placeholder="Nhập địa chỉ mới của Showroom..."
+                          class="w-full rounded-xl p-3 text-sm border focus:outline-none"
+                          style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);"></textarea>
+                <div class="flex items-center justify-end gap-2">
+                    <button type="button" onclick="toggleInlineAddressEditor(false)"
+                            class="px-4 py-2 rounded-xl text-xs font-medium border"
+                            style="border-color: var(--border-color); color: var(--text-secondary);">
+                        Hủy
+                    </button>
+                    <button type="button" onclick="saveInlineShowroomAddress()"
+                            class="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-transform hover:scale-105"
+                            style="background: var(--accent); color: #09090b;">
+                        Lưu Địa Chỉ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Tối Giản (Chỉ Địa Chỉ, Không Liên Hệ, Không Giá) -->
+    <footer class="relative z-10 border-t py-10 px-4 text-center" style="border-color: var(--border-color); background-color: var(--bg-secondary);">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center justify-center gap-2.5 mb-3">
+                <i data-lucide="crown" class="w-5 h-5" style="color: var(--accent);"></i>
+                <span class="font-serif-luxury text-2xl font-bold" style="color: var(--text-primary);">
+                    Đại Lý Phân Phối Thịnh Vượng
+                </span>
+            </div>
+            <p class="text-xs sm:text-sm mb-2" style="color: var(--text-secondary);">
+                Không Gian Trưng Bày Kỹ Thuật Số — Nước Hoa Nam • Nước Hoa Nữ • Mặt Nạ Dưỡng Da • Máy Lọc Nước Ion Kiềm
+            </p>
+            <div class="inline-flex flex-wrap items-center justify-center gap-2 text-xs font-medium" style="color: var(--accent);">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                <span id="footerShowroomAddress">Số 168 Đại Lộ Võ Thị Sáu, Phường Thống Nhất, Thành Phố Biên Hòa, Tỉnh Đồng Nai</span>
+                <button type="button" onclick="openDirectAddressEditor()" title="Cập nhật địa chỉ"
+                        class="ml-1 underline opacity-80 hover:opacity-100">
+                    [Đổi địa chỉ]
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- 4. STUDIO TRANG TRÍ & LỄ HỘI (GIÁNG SINH, TẾT NGUYÊN ĐÁN, BẢNG MÀU)   -->
+    <!-- ===================================================================== -->
+    <button onclick="toggleCustomizer()"
+            aria-label="Mở Studio Trang Trí & Lễ Hội"
+            class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl border transition-transform duration-300 hover:scale-110"
+            style="background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-color: #ffffff40; color: #09090b; box-shadow: 0 10px 30px var(--accent-glow);">
+        <i data-lucide="sparkles" class="w-6 h-6"></i>
+    </button>
+
+    <div id="customizerOverlay" onclick="toggleCustomizer()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    <aside id="customizerPanel"
+           class="fixed top-0 right-0 bottom-0 w-full max-w-md z-50 transform translate-x-full transition-transform duration-500 ease-out border-l overflow-y-auto p-6 sm:p-8"
+           style="background-color: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+        <div class="flex items-center justify-between pb-5 mb-6 border-b" style="border-color: var(--border-color);">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background: var(--accent-glow); color: var(--accent);">
+                    <i data-lucide="wand-2" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif-luxury text-2xl font-bold leading-none">Trang Trí & Lễ Hội</h3>
+                    <p class="text-xs mt-1" style="color: var(--text-secondary);">Hiệu ứng động & Bảng màu không gian</p>
+                </div>
+            </div>
+            <button onclick="toggleCustomizer()" class="p-2 rounded-full border hover:opacity-80" style="border-color: var(--border-color);">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Mục 1: Hiệu Ứng Mùa & Lễ Hội Đặc Biệt -->
+        <div class="mb-7">
+            <label class="text-xs uppercase tracking-widest font-bold block mb-3" style="color: var(--accent);">
+                1. Hiệu Ứng Lễ Hội & Không Khí Mùa
+            </label>
+            <div class="grid grid-cols-2 gap-2.5">
+                <button onclick="setFestivalMode('luxury', true)" data-festival-btn="luxury"
+                        class="festival-btn p-3.5 rounded-2xl border text-left transition-all flex flex-col gap-1.5">
+                    <div class="flex items-center justify-between">
+                        <i data-lucide="crown" class="w-5 h-5" style="color: var(--accent);"></i>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full border" style="border-color: var(--border-color);">Mặc định</span>
+                    </div>
+                    <span class="text-xs font-bold mt-1">Bụi Vàng Sang Trọng</span>
+                    <span class="text-[11px] opacity-70">Hạt ánh kim lơ lửng</span>
+                </button>
+
+                <button onclick="setFestivalMode('christmas', true)" data-festival-btn="christmas"
+                        class="festival-btn p-3.5 rounded-2xl border text-left transition-all flex flex-col gap-1.5">
+                    <div class="flex items-center justify-between">
+                        <i data-lucide="snowflake" class="w-5 h-5 text-sky-400"></i>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Noel</span>
+                    </div>
+                    <span class="text-xs font-bold mt-1">Giáng Sinh An Lành</span>
+                    <span class="text-[11px] opacity-70">Tuyết rơi 3D & đèn lễ hội</span>
+                </button>
+
+                <button onclick="setFestivalMode('tet', true)" data-festival-btn="tet"
+                        class="festival-btn p-3.5 rounded-2xl border text-left transition-all flex flex-col gap-1.5">
+                    <div class="flex items-center justify-between">
+                        <i data-lucide="flower" class="w-5 h-5 text-amber-400"></i>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-300">Xuân</span>
+                    </div>
+                    <span class="text-xs font-bold mt-1">Tết Nguyên Đán</span>
+                    <span class="text-[11px] opacity-70">Hoa mai đào & pháo hoa</span>
+                </button>
+
+                <button onclick="setFestivalMode('aurora', true)" data-festival-btn="aurora"
+                        class="festival-btn p-3.5 rounded-2xl border text-left transition-all flex flex-col gap-1.5">
+                    <div class="flex items-center justify-between">
+                        <i data-lucide="waves" class="w-5 h-5 text-indigo-400"></i>
+                        <span class="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">Nghệ thuật</span>
+                    </div>
+                    <span class="text-xs font-bold mt-1">Cực Quang Huyền Ảo</span>
+                    <span class="text-[11px] opacity-70">Sóng ánh sáng chuyển sắc</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mục 2: Bảng màu chủ đạo -->
+        <div class="mb-7">
+            <label class="text-xs uppercase tracking-widest font-bold block mb-3" style="color: var(--accent);">
+                2. Bảng Màu Chủ Đạo (Theme)
+            </label>
+            <div class="grid grid-cols-1 gap-2.5">
+                <button onclick="applyTheme('gold-obsidian', true)" data-theme-btn="gold-obsidian"
+                        class="theme-preset-btn flex items-center justify-between p-3 rounded-2xl border text-left transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full border border-white/20 shrink-0" style="background: linear-gradient(135deg, #09090b 45%, #d4af37 55%);"></span>
+                        <div>
+                            <div class="text-xs font-bold">Hoàng Kim & Đen Huyền Bí</div>
+                            <div class="text-[11px] opacity-70">Đẳng cấp triển lãm cổ điển</div>
+                        </div>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 check-icon opacity-0" style="color: var(--accent);"></i>
+                </button>
+
+                <button onclick="applyTheme('marble-rosegold', true)" data-theme-btn="marble-rosegold"
+                        class="theme-preset-btn flex items-center justify-between p-3 rounded-2xl border text-left transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full border border-black/15 shrink-0" style="background: linear-gradient(135deg, #faf8f5 45%, #b76e5c 55%);"></span>
+                        <div>
+                            <div class="text-xs font-bold">Trắng Cẩm Thạch & Vàng Hồng</div>
+                            <div class="text-[11px] opacity-70">Tinh khôi, nhẹ nhàng chuẩn Spa</div>
+                        </div>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 check-icon opacity-0" style="color: var(--accent);"></i>
+                </button>
+
+                <button onclick="applyTheme('tet-royal', true)" data-theme-btn="tet-royal"
+                        class="theme-preset-btn flex items-center justify-between p-3 rounded-2xl border text-left transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full border border-white/20 shrink-0" style="background: linear-gradient(135deg, #2b060a 45%, #f59e0b 55%);"></span>
+                        <div>
+                            <div class="text-xs font-bold">Đỏ Phú Quý & Vàng Kim Tết</div>
+                            <div class="text-[11px] opacity-70">Rực rỡ đón xuân Thịnh Vượng</div>
+                        </div>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 check-icon opacity-0" style="color: var(--accent);"></i>
+                </button>
+
+                <button onclick="applyTheme('noel-pine', true)" data-theme-btn="noel-pine"
+                        class="theme-preset-btn flex items-center justify-between p-3 rounded-2xl border text-left transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-full border border-white/20 shrink-0" style="background: linear-gradient(135deg, #04211a 45%, #e2e8f0 55%);"></span>
+                        <div>
+                            <div class="text-xs font-bold">Xanh Thông Noel & Bạc Tuyết</div>
+                            <div class="text-[11px] opacity-70">Ấm áp đêm Giáng Sinh</div>
+                        </div>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 check-icon opacity-0" style="color: var(--accent);"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mục 3: Hiệu ứng tương tác thẻ sản phẩm -->
+        <div class="mb-7">
+            <label class="text-xs uppercase tracking-widest font-bold block mb-3" style="color: var(--accent);">
+                3. Hiệu Ứng Khi Xem Thẻ Sản Phẩm
+            </label>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="setCardEffect('tilt', true)" data-card-btn="tilt"
+                        class="card-effect-btn p-3 rounded-xl border text-center transition-all flex flex-col items-center gap-1.5">
+                    <i data-lucide="box" class="w-4 h-4" style="color: var(--accent);"></i>
+                    <span class="text-xs font-medium">Nghiêng 3D</span>
+                </button>
+                <button onclick="setCardEffect('glow', true)" data-card-btn="glow"
+                        class="card-effect-btn p-3 rounded-xl border text-center transition-all flex flex-col items-center gap-1.5">
+                    <i data-lucide="sun" class="w-4 h-4" style="color: var(--accent);"></i>
+                    <span class="text-xs font-medium">Phát Sáng</span>
+                </button>
+                <button onclick="setCardEffect('zoom', true)" data-card-btn="zoom"
+                        class="card-effect-btn p-3 rounded-xl border text-center transition-all flex flex-col items-center gap-1.5">
+                    <i data-lucide="maximize-2" class="w-4 h-4" style="color: var(--accent);"></i>
+                    <span class="text-xs font-medium">Phóng To</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mục 4: Đồng bộ cấu hình chung cho mọi khách truy cập -->
+        <div class="p-4 rounded-2xl border mb-4" style="background: var(--bg-primary); border-color: var(--border-color);">
+            <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-bold" style="color: var(--accent);">Đồng Bộ Không Gian Công Khai</span>
+                <i data-lucide="globe" class="w-4 h-4" style="color: var(--accent);"></i>
+            </div>
+            <p class="text-[11px] leading-relaxed mb-3" style="color: var(--text-secondary);">
+                Lưu không khí lễ hội & bảng màu hiện tại lên máy chủ để mọi khách hàng vào xem đều chiêm ngưỡng cùng một diện mạo.
+            </p>
+            <button onclick="saveGlobalDisplaySettings()"
+                    class="w-full py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-transform hover:scale-[1.02]"
+                    style="background: var(--accent); color: #09090b;">
+                Áp Dụng Cho Toàn Bộ Khách Xem
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===================================================================== -->
+    <!-- 5. TRÌNH QUẢN LÝ SẢN PHẨM & ĐỊA CHỈ SHOWROOM (THÊM / SỬA / XÓA)       -->
+    <!-- ===================================================================== -->
+    <div id="managerModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6">
+        <div onclick="closeProductManager()" class="fixed inset-0 bg-black/75 backdrop-blur-md"></div>
+        <div class="relative z-10 w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-3xl border shadow-2xl p-5 sm:p-8"
+             style="background-color: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+
+            <!-- Tiêu đề Quản Trị -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b" style="border-color: var(--border-color);">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl flex items-center justify-center" style="background: var(--accent-glow); color: var(--accent);">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-luxury text-2xl sm:text-3xl font-bold leading-none">Quản Lý Danh Mục Trưng Bày</h3>
+                        <p class="text-xs mt-1" style="color: var(--text-secondary);">
+                            Mọi thay đổi được lưu trực tiếp lên đám mây và hiển thị công khai cho tất cả khách xem
+                        </p>
+                    </div>
+                </div>
+                <button onclick="closeProductManager()" class="p-2.5 rounded-full border hover:opacity-80" style="border-color: var(--border-color);">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Thanh chuyển tab trong Quản Trị: Danh sách & Thêm/Sửa | Địa chỉ Showroom -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="switchManagerTab('products')" id="mgrTabProducts"
+                        class="px-4 py-2 rounded-full text-xs font-bold border transition-all"
+                        style="background: var(--accent); color: #09090b; border-color: var(--accent);">
+                    Sản Phẩm Trưng Bày
+                </button>
+                <button onclick="switchManagerTab('address')" id="mgrTabAddress"
+                        class="px-4 py-2 rounded-full text-xs font-bold border transition-all"
+                        style="background: var(--bg-primary); color: var(--text-primary); border-color: var(--border-color);">
+                    Cập Nhật Địa Chỉ Showroom
+                </button>
+            </div>
+
+            <!-- TAB 1: QUẢN LÝ SẢN PHẨM (2 CỘT: BIỂU MẪU & DANH SÁCH HIỆN CÓ) -->
+            <div id="managerProductsSection" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Cột Trái: Form Thêm / Chỉnh Sửa Sản Phẩm -->
+                <div class="lg:col-span-7 p-5 sm:p-6 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 id="formTitle" class="font-serif-luxury text-2xl font-bold" style="color: var(--accent);">
+                            Thêm Sản Phẩm Mới
+                        </h4>
+                        <button type="button" onclick="resetProductForm()" id="cancelEditBtn" class="hidden text-xs underline opacity-80 hover:opacity-100">
+                            Hủy chỉnh sửa
+                        </button>
+                    </div>
+
+                    <form id="productForm" onsubmit="handleSaveProduct(event)" class="space-y-4">
+                        <input type="hidden" id="editProductId">
+
+                        <!-- Chọn Danh Mục -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-semibold block mb-1.5">Danh mục trưng bày *</label>
+                                <select id="prodCategory" onchange="renderCategorySpecificFields()"
+                                        class="w-full rounded-xl px-3.5 py-2.5 text-sm border focus:outline-none"
+                                        style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                                    <option value="nuoc-hoa-nam">Nước Hoa Nam</option>
+                                    <option value="nuoc-hoa-nu">Nước Hoa Nữ</option>
+                                    <option value="mat-na">Mặt Nạ Dưỡng Da</option>
+                                    <option value="may-loc-nuoc">Máy Lọc Nước Ion Kiềm</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold block mb-1.5">Nhãn nổi bật (Badge)</label>
+                                <input type="text" id="prodBadge" placeholder="VD: Extrait de Parfum / Chuẩn Y Tế"
+                                       class="w-full rounded-xl px-3.5 py-2.5 text-sm border focus:outline-none"
+                                       style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                            </div>
+                        </div>
+
+                        <!-- Tên sản phẩm & Dòng/Phụ đề -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-xs font-semibold block mb-1.5">Tên sản phẩm *</label>
+                                <input type="text" id="prodName" required placeholder="Nhập tên sản phẩm..."
+                                       class="w-full rounded-xl px-3.5 py-2.5 text-sm border focus:outline-none"
+                                       style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold block mb-1.5">Dòng / Đặc trưng nổi bật *</label>
+                                <input type="text" id="prodSubtitle" required placeholder="VD: Tinh Hoa Trầm Hương & Hổ Phách"
+                                       class="w-full rounded-xl px-3.5 py-2.5 text-sm border focus:outline-none"
+                                       style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                            </div>
+                        </div>
+
+                        <!-- Hình ảnh sản phẩm (URL hoặc Tải ảnh trực tiếp từ máy) -->
+                        <div class="p-3.5 rounded-xl border" style="border-color: var(--border-color); background: var(--bg-secondary);">
+                            <label class="text-xs font-semibold block mb-2">Hình ảnh sản phẩm (Dán link ảnh hoặc tải ảnh lên)</label>
+                            <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                                <div class="w-20 h-20 rounded-xl border overflow-hidden shrink-0 flex items-center justify-center"
+                                     style="border-color: var(--border-color); background: var(--bg-primary);">
+                                    <img id="imagePreview" src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80"
+                                         alt="Xem trước" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 w-full space-y-2">
+                                    <input type="text" id="prodImageUrl" oninput="updateImagePreview(this.value)"
+                                           placeholder="Dán đường dẫn ảnh (https://...)"
+                                           class="w-full rounded-lg px-3 py-2 text-xs border focus:outline-none"
+                                           style="background: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary);">
+                                    <div class="flex items-center gap-2">
+                                        <label class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-opacity hover:opacity-85"
+                                               style="border-color: var(--accent); color: var(--accent);">
+                                            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                                            <span>Tải ảnh từ thiết bị</span>
+                                            <input type="file" accept="image/*" onchange="handleImageUpload(event)" class="hidden">
+                                        </label>
+                                        <span class="text-[11px] opacity-65">Tự động tối ưu kích thước</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mô tả chung -->
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Mô tả chi tiết sản phẩm *</label>
+                            <textarea id="prodDescription" rows="2" required placeholder="Giới thiệu câu chuyện, giá trị và điểm tinh túy của sản phẩm..."
+                                      class="w-full rounded-xl px-3.5 py-2 text-sm border focus:outline-none"
+                                      style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);"></textarea>
+                        </div>
+
+                        <!-- Khu vực trường nhập liệu thích ứng theo từng danh mục -->
+                        <div id="dynamicCategoryFields" class="space-y-3 pt-2 border-t" style="border-color: var(--border-color);">
+                            <!-- Render tự động theo danh mục được chọn -->
+                        </div>
+
+                        <div class="pt-2 flex items-center gap-3">
+                            <button type="submit" id="saveProductBtn"
+                                    class="flex-1 py-3.5 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider transition-transform hover:scale-[1.01] shadow-lg"
+                                    style="background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #09090b;">
+                                Lưu & Đăng Lên Trang Trưng Bày
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Cột Phải: Danh Sách Sản Phẩm Đang Trưng Bày (Để Sửa / Xóa) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-serif-luxury text-2xl font-bold">Danh Sách Hiện Có</h4>
+                        <span id="managerTotalBadge" class="text-xs px-2.5 py-1 rounded-full border"
+                              style="border-color: var(--border-color); color: var(--accent);">0 sản phẩm</span>
+                    </div>
+                    <div id="managerProductList" class="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+                        <!-- Danh sách render động -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CẬP NHẬT ĐỊA CHỈ SHOWROOM (KHÔNG THÔNG TIN LIÊN HỆ, KHÔNG GIÁ) -->
+            <div id="managerAddressSection" class="hidden max-w-2xl mx-auto py-4">
+                <div class="p-6 rounded-2xl border space-y-4" style="background: var(--bg-primary); border-color: var(--border-color);">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="map-pin" class="w-6 h-6" style="color: var(--accent);"></i>
+                        <div>
+                            <h4 class="font-serif-luxury text-2xl font-bold">Địa Chỉ Showroom Trưng Bày</h4>
+                            <p class="text-xs opacity-75">Thông tin duy nhất hiển thị ở chân trang web (không kèm số điện thoại hay giá bán).</p>
+                        </div>
+                    </div>
+                    <textarea id="managerAddressInput" rows="3"
+                              class="w-full rounded-xl p-3.5 text-sm border focus:outline-none"
+                              style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);"></textarea>
+                    <button onclick="saveShowroomAddressToCloud()"
+                            class="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-transform hover:scale-105"
+                            style="background: var(--accent); color: #09090b;">
+                        Lưu Địa Chỉ Showroom
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 6. MODAL CHI TIẾT SẢN PHẨM CHUYÊN SÂU (KHÔNG GIÁ, KHÔNG ĐẶT HÀNG)     -->
+    <!-- ===================================================================== -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6">
+        <div onclick="closeProductModal()" class="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity"></div>
+        <div id="productModalContent"
+             class="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border shadow-2xl transform scale-95 opacity-0 transition-all duration-300"
+             style="background-color: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+        </div>
+    </div>
+
+    <!-- Hộp thông báo trạng thái mượt mà (Toast Notification - Không dùng alert) -->
+    <div id="toastBanner"
+         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-5 py-3 rounded-full border shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-medium flex items-center gap-2.5 opacity-0 pointer-events-none transition-all duration-300 translate-y-4"
+         style="background: var(--bg-secondary); border-color: var(--accent); color: var(--text-primary);">
+        <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0" style="color: var(--accent);"></i>
+        <span id="toastMessage">Đã cập nhật thành công</span>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- LOGIC ỨNG DỤNG & KẾT NỐI FIREBASE FIRESTORE THỜI GIAN THỰC            -->
+    <!-- ===================================================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =========================================================================
+        // 1. DỮ LIỆU KHỞI TẠO MẶC ĐỊNH (TỰ ĐỘNG NẠP KHI FIRESTORE CHƯA CÓ DỮ LIỆU)
+        // =========================================================================
+        const DEFAULT_ADDRESS = "Số 168 Đại Lộ Võ Thị Sáu, Phường Thống Nhất, Thành Phố Biên Hòa, Tỉnh Đồng Nai";
+
+        const INITIAL_PRODUCTS = [
+            {
+                category: 'nuoc-hoa-nam',
+                categoryLabel: 'Nước Hoa Nam',
+                name: 'Imperial Oud Noir',
+                subtitle: 'Trầm Hương Hoàng Gia & Da Thuộc Cổ Điển',
+                badge: 'Extrait de Parfum',
+                image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #1c1917, #b45309)',
+                longevityHours: 12,
+                sillage: 'Tỏa hương xa (bán kính 2 mét)',
+                scentFamily: 'Hương Gỗ Phương Đông & Da Thuộc (Woody Leather)',
+                description: 'Tuyệt tác dành riêng cho phái mạnh với sự kết hợp đầy uy lực giữa trầm hương lâu năm, nhục đậu khấu cay nồng và lớp nền hổ phách khói trầm ấm.',
+                topNotes: 'Nghệ tây đỏ (Saffron), Nhục đậu khấu, Cam Bergamot đen',
+                heartNotes: 'Trầm hương nguyên bản (Oud), Da thuộc Ý, Gỗ tuyết tùng',
+                baseNotes: 'Hổ phách xám, Gỗ đàn hương Mysore, Cỏ hương bài',
+                createdAt: 1700000001
+            },
+            {
+                category: 'nuoc-hoa-nam',
+                categoryLabel: 'Nước Hoa Nam',
+                name: 'Royal Cedar Reserve',
+                subtitle: 'Gỗ Tuyết Tùng Hoàng Gia & Tiêu Đen Madagascar',
+                badge: 'Eau de Parfum Intense',
+                image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #0f172a, #ca8a04)',
+                longevityHours: 10,
+                sillage: 'Tỏa hương vừa (1 - 1.5 mét)',
+                scentFamily: 'Hương Gỗ Thảo Mộc Lịch Lãm (Aromatic Woody)',
+                description: 'Phong thái đĩnh đạc và sắc sảo với mở đầu thanh khiết từ bưởi hồng, tiêu đen Madagascar hòa quyện cùng gỗ tuyết tùng Atlas vững chãi.',
+                topNotes: 'Tiêu đen Madagascar, Bưởi hồng, Bạch đậu khấu',
+                heartNotes: 'Gỗ tuyết tùng Atlas, Lá xô thơm, Hoa oải hương Pháp',
+                baseNotes: 'Long diên hương, Rêu sồi, Xạ hương nam tính',
+                createdAt: 1700000002
+            },
+            {
+                category: 'nuoc-hoa-nu',
+                categoryLabel: 'Nước Hoa Nữ',
+                name: 'Éclat De Rose Velvet',
+                subtitle: 'Nhung Hồng Tháng Năm & Tinh Dầu Hoa Cam Neroli',
+                badge: 'Extrait de Parfum',
+                image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #3b1d2a, #e5989b)',
+                longevityHours: 11,
+                sillage: 'Tỏa hương xa (1.5 - 2 mét)',
+                scentFamily: 'Hương Hoa Hồng Nhung & Hổ Phách (Floral Oriental)',
+                description: 'Những cánh hồng Centifolia hái lúc bình minh đan xen cùng quả vải mọng nước và xạ hương nhung mềm mại, tôn vinh vẻ đẹp kiêu sa đầy quyến rũ.',
+                topNotes: 'Quả vải hồng, Hoa cam Neroli, Tiêu hồng',
+                heartNotes: 'Hoa hồng Centifolia, Hoa mẫu đơn trắng, Hoa mộc lan',
+                baseNotes: 'Xạ hương nhung, Hổ phách trắng, Vani Bourbon',
+                createdAt: 1700000003
+            },
+            {
+                category: 'nuoc-hoa-nu',
+                categoryLabel: 'Nước Hoa Nữ',
+                name: 'Lumière Blanc Fleur',
+                subtitle: 'Ánh Sáng Hoa Nhài Trắng & Gỗ Đàn Hương Sữa',
+                badge: 'Eau de Parfum',
+                image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #31102f, #f472b6)',
+                longevityHours: 9,
+                sillage: 'Tỏa hương vừa (1 - 1.5 mét)',
+                scentFamily: 'Hương Hoa Trắng Thanh Khiết (White Floral Musky)',
+                description: 'Vẻ đẹp thanh tao thuần khiết như dải lụa ánh trăng với hoa nhài Sambac, hoa huệ trắng hòa quyện trên nền gỗ đàn hương kem mịn đầy lưu luyến.',
+                topNotes: 'Quả lê xanh, Cam Mandarin ngọt, Hoa linh lan',
+                heartNotes: 'Hoa nhài Sambac, Hoa huệ trắng, Hoa diên vĩ',
+                baseNotes: 'Gỗ đàn hương sữa, Đậu Tonka, Xạ hương trắng',
+                createdAt: 1700000004
+            },
+            {
+                category: 'mat-na',
+                categoryLabel: 'Mặt Nạ Dưỡng Da',
+                name: 'Bio-Cellulose 24K Gold & Collagen',
+                subtitle: 'Mặt Nạ Sinh Học Tinh Chất Vàng 24K & Peptide',
+                badge: 'Phục Hồi & Nâng Cơ',
+                image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #3d2c14, #eab308)',
+                skinType: 'Mọi loại da, đặc biệt da cần tăng độ đàn hồi & rạng rỡ',
+                texture: 'Sợi sinh học Bio-Cellulose ôm khít đường nét khuôn mặt',
+                keyIngredients: 'Tinh thể Vàng 24K, Hydrolyzed Collagen, Hexapeptide-8, Niacinamide',
+                description: 'Mặt nạ lên men sinh học tự nhiên giúp truyền dẫn trọn vẹn dưỡng chất vàng 24K và phân tử Collagen siêu nhỏ, mang lại bề mặt da căng bóng mịn mượt tức thì.',
+                ritual: 'Đắp thư giãn trong 15–20 phút sau bước làm sạch và cân bằng da, vỗ nhẹ để tinh chất thẩm thấu hoàn toàn.',
+                createdAt: 1700000005
+            },
+            {
+                category: 'mat-na',
+                categoryLabel: 'Mặt Nạ Dưỡng Da',
+                name: 'Hydro-B5 Hyaluronic Silk Mask',
+                subtitle: 'Mặt Nạ Lụa Tơ Tằm Cấp Nước Đa Phân Tử B5',
+                badge: 'Cấp Ẩm Chuyên Sâu',
+                image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #102a43, #60a5fa)',
+                skinType: 'Da khô thiếu nước, da nhạy cảm cần làm dịu',
+                texture: 'Màng lụa Tencel siêu mỏng nhẹ ngậm trọn 30ml tinh chất',
+                keyIngredients: 'Vitamin B5 (Panthenol) 5%, 5 loại Hyaluronic Acid, Chiết xuất Rau Má, Ceramide NP',
+                description: 'Làm dịu nhanh cảm giác khô căng, khóa ẩm đa tầng và củng cố hàng rào bảo vệ da tự nhiên mang lại cảm giác thư thái chuẩn Spa.',
+                ritual: 'Sử dụng 2–3 lần mỗi tuần để duy trì độ ẩm mượt và sự cân bằng lý tưởng cho làn da.',
+                createdAt: 1700000006
+            },
+            {
+                category: 'may-loc-nuoc',
+                categoryLabel: 'Máy Lọc Nước Ion Kiềm',
+                name: 'Thịnh Vượng Platinum 9-Plates',
+                subtitle: 'Hệ Thống Điện Giải Ion Kiềm 9 Tấm Điện Cực Titan Phủ Bạch Kim',
+                badge: 'Chuẩn Thiết Bị Y Tế',
+                image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #082f49, #0284c7)',
+                plates: '9 Tấm điện cực Titan nguyên khối phủ Platinum 99.97%',
+                orpRange: '-850 mV',
+                hydrogen: '1600 ppb',
+                phSummary: 'Dải rộng pH 3.5 – 10.5 (7 chế độ nước chuyên biệt phục vụ uống tươi, pha trà, nấu ăn, làm đẹp Beauty pH 5.5 và rửa rau củ)',
+                description: 'Kiệt tác công nghệ điện phân hiện đại với màn hình cảm ứng kính cường lực sang trọng, tạo ra nguồn nước giàu Hydrogen và vi khoáng tự nhiên.',
+                createdAt: 1700000007
+            },
+            {
+                category: 'may-loc-nuoc',
+                categoryLabel: 'Máy Lọc Nước Ion Kiềm',
+                name: 'Thịnh Vượng Crystal 7-Plates',
+                subtitle: 'Máy Lọc Nước Điện Giải Ion Kiềm 7 Tấm Điện Cực Thông Minh',
+                badge: 'Thiết Kế Tinh Gọn',
+                image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=900&q=85',
+                fallbackBg: 'linear-gradient(135deg, #064e3b, #10b981)',
+                plates: '7 Tấm điện cực Titan phủ Bạch Kim nguyên chất',
+                orpRange: '-650 mV',
+                hydrogen: '1300 ppb',
+                phSummary: 'Dải chuẩn pH 5.5 – 10.0 (Nước kiềm uống hằng ngày pH 8.5 - 9.5, nước trung tính pha sữa pH 7.0, nước Beauty pH 5.5)',
+                description: 'Thiết kế tinh tế phù hợp mọi không gian bếp hiện đại, tích hợp công nghệ tự động làm sạch điện cực đảo chiều duy trì hiệu suất bền bỉ.',
+                createdAt: 1700000008
+            }
+        ];
+
+        // =========================================================================
+        // 2. BẢNG MÀU CHỦ ĐẠO (THEMES) & HIỆU ỨNG LỄ HỘI
+        // =========================================================================
+        const THEMES = {
+            'gold-obsidian': {
+                '--bg-primary': '#09090b',
+                '--bg-secondary': '#121216',
+                '--bg-card': 'rgba(24, 24, 29, 0.74)',
+                '--text-primary': '#fafafa',
+                '--text-secondary': '#a1a1aa',
+                '--accent': '#d4af37',
+                '--accent-light': '#f3e5ab',
+                '--accent-glow': 'rgba(212, 175, 55, 0.35)',
+                '--border-color': 'rgba(212, 175, 55, 0.25)',
+                '--aurora-1': 'rgba(212, 175, 55, 0.16)',
+                '--aurora-2': 'rgba(180, 130, 35, 0.09)'
+            },
+            'marble-rosegold': {
+                '--bg-primary': '#faf8f5',
+                '--bg-secondary': '#f2ede6',
+                '--bg-card': 'rgba(255, 255, 255, 0.84)',
+                '--text-primary': '#1c1917',
+                '--text-secondary': '#57534e',
+                '--accent': '#b76e5c',
+                '--accent-light': '#e0a99b',
+                '--accent-glow': 'rgba(183, 110, 92, 0.28)',
+                '--border-color': 'rgba(183, 110, 92, 0.25)',
+                '--aurora-1': 'rgba(224, 169, 155, 0.26)',
+                '--aurora-2': 'rgba(214, 185, 150, 0.22)'
+            },
+            'tet-royal': {
+                '--bg-primary': '#1f0508',
+                '--bg-secondary': '#2d080d',
+                '--bg-card': 'rgba(56, 12, 18, 0.76)',
+                '--text-primary': '#fffbeb',
+                '--text-secondary': '#fcd34d',
+                '--accent': '#fbbf24',
+                '--accent-light': '#fef08a',
+                '--accent-glow': 'rgba(251, 191, 36, 0.38)',
+                '--border-color': 'rgba(251, 191, 36, 0.32)',
+                '--aurora-1': 'rgba(220, 38, 38, 0.24)',
+                '--aurora-2': 'rgba(245, 158, 11, 0.16)'
+            },
+            'noel-pine': {
+                '--bg-primary': '#041c16',
+                '--bg-secondary': '#082b22',
+                '--bg-card': 'rgba(11, 48, 39, 0.75)',
+                '--text-primary': '#f8fafc',
+                '--text-secondary': '#cbd5e1',
+                '--accent': '#34d399',
+                '--accent-light': '#a7f3d0',
+                '--accent-glow': 'rgba(52, 211, 153, 0.32)',
+                '--border-color': 'rgba(255, 255, 255, 0.25)',
+                '--aurora-1': 'rgba(16, 185, 129, 0.18)',
+                '--aurora-2': 'rgba(244, 63, 94, 0.14)'
+            }
+        };
+
+        // Trạng thái toàn cục
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let appId = typeof __app_id !== 'undefined' ? __app_id : 'thinh-vuong-showroom';
+        let productsList = [];
+        let currentFilter = 'all';
+        let currentTheme = 'gold-obsidian';
+        let currentFestival = 'luxury';
+        let currentCardEffect = 'tilt';
+        let showroomAddress = DEFAULT_ADDRESS;
+
+        // =========================================================================
+        // 3. KHỞI TẠO FIREBASE FIRESTORE (CHẾ ĐỘ MỞ CÔNG KHAI CHO MỌI NGƯỜI)
+        // =========================================================================
+        async function initFirebaseRealtime() {
+            const statusDot = document.getElementById('syncStatusDot');
+            const statusText = document.getElementById('syncStatusText');
+
+            try {
+                if (typeof __firebase_config === 'undefined') {
+                    throw new Error('Offline fallback');
+                }
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Xác thực trước khi truy vấn Firestore (Bắt buộc)
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    const cred = await signInWithCustomToken(auth, __initial_auth_token);
+                    currentUser = cred.user;
+                } else {
+                    const cred = await signInAnonymously(auth);
+                    currentUser = cred.user;
+                }
+
+                if (!currentUser) return;
+
+                // Đường dẫn công khai chuẩn: /artifacts/{appId}/public/data/{collectionName}
+                const productsColRef = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                const settingsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'site_settings', 'global');
+
+                // Kiểm tra & khởi tạo dữ liệu mẫu lần đầu nếu collection trống
+                const initialSnap = await getDocs(productsColRef);
+                if (initialSnap.empty) {
+                    for (const item of INITIAL_PRODUCTS) {
+                        await addDoc(productsColRef, item);
+                    }
+                    await setDoc(settingsDocRef, {
+                        address: DEFAULT_ADDRESS,
+                        theme: 'gold-obsidian',
+                        festival: 'luxury',
+                        cardEffect: 'tilt'
+                    }, { merge: true });
+                }
+
+                // Lắng nghe danh sách sản phẩm thời gian thực
+                onSnapshot(productsColRef, (snapshot) => {
+                    const items = [];
+                    snapshot.forEach(docSnap => {
+                        const raw = docSnap.data();
+                        // Tự động chuẩn hóa các slug cũ nếu có trên đám mây
+                        let normalizedCat = raw.category;
+                        let normalizedLabel = raw.categoryLabel;
+                        if (normalizedCat === 'perfume') {
+                            normalizedCat = 'nuoc-hoa-nam';
+                            normalizedLabel = 'Nước Hoa Nam';
+                        } else if (normalizedCat === 'mask') {
+                            normalizedCat = 'mat-na';
+                            normalizedLabel = 'Mặt Nạ Dưỡng Da';
+                        } else if (normalizedCat === 'water') {
+                            normalizedCat = 'may-loc-nuoc';
+                            normalizedLabel = 'Máy Lọc Nước Ion Kiềm';
+                        }
+                        items.push({ id: docSnap.id, ...raw, category: normalizedCat, categoryLabel: normalizedLabel });
+                    });
+                    // Sắp xếp theo thời gian tạo (mới nhất lên đầu hoặc giữ thứ tự ổn định)
+                    items.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                    productsList = items;
+                    renderAllProductsUI();
+
+                    statusDot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                    statusText.textContent = 'Trưng bày trực tuyến • Đồng bộ thời gian thực';
+                }, (error) => {
+                    console.error('Firestore products listener error:', error);
+                    useFallbackProducts();
+                });
+
+                // Lắng nghe cấu hình không gian chung (Địa chỉ, Lễ hội, Bảng màu)
+                onSnapshot(settingsDocRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data.address) {
+                            showroomAddress = data.address;
+                            updateAddressDisplay(showroomAddress);
+                        }
+                        if (data.theme && THEMES[data.theme]) {
+                            window.applyTheme(data.theme, false);
+                        }
+                        if (data.festival) {
+                            window.setFestivalMode(data.festival, false);
+                        }
+                        if (data.cardEffect) {
+                            window.setCardEffect(data.cardEffect, false);
+                        }
+                    }
+                }, (err) => {
+                    console.error('Settings listener error:', err);
+                });
+
+            } catch (err) {
+                console.warn('Chạy chế độ cục bộ dự phòng:', err);
+                useFallbackProducts();
+            }
+        }
+
+        function useFallbackProducts() {
+            productsList = INITIAL_PRODUCTS.map((item, idx) => ({ id: 'local-' + idx, ...item }));
+            renderAllProductsUI();
+            const statusDot = document.getElementById('syncStatusDot');
+            const statusText = document.getElementById('syncStatusText');
+            if (statusDot) statusDot.className = 'w-2 h-2 rounded-full bg-amber-400';
+            if (statusText) statusText.textContent = 'Không gian trưng bày trực tiếp';
+        }
+
+        // =========================================================================
+        // 4. QUẢN LÝ SẢN PHẨM (THÊM / SỬA / XÓA) & ĐỊA CHỈ SHOWROOM
+        // =========================================================================
+        window.handleSaveProduct = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('saveProductBtn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Đang lưu lên trang trưng bày...';
+
+            try {
+                const editId = document.getElementById('editProductId').value;
+                const category = document.getElementById('prodCategory').value;
+                const categoryLabels = {
+                    'nuoc-hoa-nam': 'Nước Hoa Nam',
+                    'nuoc-hoa-nu': 'Nước Hoa Nữ',
+                    'mat-na': 'Mặt Nạ Dưỡng Da',
+                    'may-loc-nuoc': 'Máy Lọc Nước Ion Kiềm'
+                };
+                const defaultBgs = {
+                    'nuoc-hoa-nam': 'linear-gradient(135deg, #1c1917, #b45309)',
+                    'nuoc-hoa-nu': 'linear-gradient(135deg, #3b1d2a, #e5989b)',
+                    'mat-na': 'linear-gradient(135deg, #3d2c14, #eab308)',
+                    'may-loc-nuoc': 'linear-gradient(135deg, #082f49, #0284c7)'
+                };
+
+                const productData = {
+                    category,
+                    categoryLabel: categoryLabels[category],
+                    name: document.getElementById('prodName').value.trim(),
+                    subtitle: document.getElementById('prodSubtitle').value.trim(),
+                    badge: document.getElementById('prodBadge').value.trim() || 'Tinh Tuyển',
+                    image: document.getElementById('prodImageUrl').value.trim() || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=85',
+                    fallbackBg: defaultBgs[category],
+                    description: document.getElementById('prodDescription').value.trim(),
+                    updatedAt: Date.now()
+                };
+
+                // Thu thập dữ liệu riêng theo từng danh mục
+                if (category === 'nuoc-hoa-nam' || category === 'nuoc-hoa-nu') {
+                    productData.longevityHours = Number(document.getElementById('fieldLongevity')?.value || 10);
+                    productData.sillage = document.getElementById('fieldSillage')?.value || 'Tỏa hương vừa (1 - 1.5 mét)';
+                    productData.scentFamily = document.getElementById('fieldScentFamily')?.value.trim() || 'Hương Gỗ & Hoa Cỏ';
+                    productData.topNotes = document.getElementById('fieldTopNotes')?.value.trim() || '';
+                    productData.heartNotes = document.getElementById('fieldHeartNotes')?.value.trim() || '';
+                    productData.baseNotes = document.getElementById('fieldBaseNotes')?.value.trim() || '';
+                } else if (category === 'mat-na') {
+                    productData.keyIngredients = document.getElementById('fieldIngredients')?.value.trim() || '';
+                    productData.texture = document.getElementById('fieldTexture')?.value.trim() || '';
+                    productData.skinType = document.getElementById('fieldSkinType')?.value.trim() || '';
+                    productData.ritual = document.getElementById('fieldRitual')?.value.trim() || '';
+                } else if (category === 'may-loc-nuoc') {
+                    productData.plates = document.getElementById('fieldPlates')?.value.trim() || '';
+                    productData.orpRange = document.getElementById('fieldOrp')?.value.trim() || '-750 mV';
+                    productData.hydrogen = document.getElementById('fieldHydrogen')?.value.trim() || '1400 ppb';
+                    productData.phSummary = document.getElementById('fieldPhSummary')?.value.trim() || '';
+                }
+
+                if (db && currentUser) {
+                    if (editId && !editId.startsWith('local-')) {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'products', editId);
+                        await updateDoc(docRef, productData);
+                        showToast('Đã cập nhật thông tin sản phẩm thành công!');
+                    } else {
+                        productData.createdAt = Date.now();
+                        const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                        await addDoc(colRef, productData);
+                        showToast('Đã thêm sản phẩm mới lên trang trưng bày!');
+                    }
+                } else {
+                    // Dự phòng cục bộ nếu chưa kết nối mạng
+                    if (editId) {
+                        const idx = productsList.findIndex(p => p.id === editId);
+                        if (idx !== -1) productsList[idx] = { ...productsList[idx], ...productData };
+                    } else {
+                        productsList.unshift({ id: 'local-' + Date.now(), createdAt: Date.now(), ...productData });
+                    }
+                    renderAllProductsUI();
+                    showToast('Đã lưu sản phẩm vào danh mục trưng bày!');
+                }
+
+                window.resetProductForm();
+            } catch (err) {
+                console.error('Lỗi lưu sản phẩm:', err);
+                showToast('Có lỗi khi lưu sản phẩm, vui lòng kiểm tra lại kết nối.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        };
+
+        window.editProductItem = function(id) {
+            const product = productsList.find(p => p.id === id);
+            if (!product) return;
+
+            window.switchManagerTab('products');
+            document.getElementById('editProductId').value = product.id;
+            document.getElementById('formTitle').textContent = 'Chỉnh Sửa Sản Phẩm';
+            document.getElementById('cancelEditBtn').classList.remove('hidden');
+            document.getElementById('saveProductBtn').textContent = 'Cập Nhật Thay Đổi';
+
+            document.getElementById('prodCategory').value = product.category;
+            window.renderCategorySpecificFields();
+
+            document.getElementById('prodName').value = product.name || '';
+            document.getElementById('prodSubtitle').value = product.subtitle || '';
+            document.getElementById('prodBadge').value = product.badge || '';
+            document.getElementById('prodImageUrl').value = product.image || '';
+            window.updateImagePreview(product.image || '');
+            document.getElementById('prodDescription').value = product.description || '';
+
+            if (product.category === 'nuoc-hoa-nam' || product.category === 'nuoc-hoa-nu') {
+                document.getElementById('fieldLongevity').value = product.longevityHours || 10;
+                document.getElementById('longevityValueLabel').textContent = (product.longevityHours || 10) + ' Giờ';
+                document.getElementById('fieldSillage').value = product.sillage || 'Tỏa hương vừa (1 - 1.5 mét)';
+                document.getElementById('fieldScentFamily').value = product.scentFamily || '';
+                document.getElementById('fieldTopNotes').value = product.topNotes || '';
+                document.getElementById('fieldHeartNotes').value = product.heartNotes || '';
+                document.getElementById('fieldBaseNotes').value = product.baseNotes || '';
+            } else if (product.category === 'mat-na') {
+                document.getElementById('fieldIngredients').value = product.keyIngredients || '';
+                document.getElementById('fieldTexture').value = product.texture || '';
+                document.getElementById('fieldSkinType').value = product.skinType || '';
+                document.getElementById('fieldRitual').value = product.ritual || '';
+            } else if (product.category === 'may-loc-nuoc') {
+                document.getElementById('fieldPlates').value = product.plates || '';
+                document.getElementById('fieldOrp').value = product.orpRange || '';
+                document.getElementById('fieldHydrogen').value = product.hydrogen || '';
+                document.getElementById('fieldPhSummary').value = product.phSummary || '';
+            }
+        };
+
+        // Xóa sản phẩm với xác nhận 2 bước trực tiếp trên nút (Không dùng window.confirm)
+        let pendingDeleteId = null;
+        window.requestDeleteProduct = async function(id, btnEl) {
+            if (pendingDeleteId !== id) {
+                pendingDeleteId = id;
+                btnEl.innerHTML = '<span class="text-[11px] font-bold px-1">Xác nhận xóa?</span>';
+                btnEl.classList.add('bg-red-600', 'text-white', 'border-red-500');
+                setTimeout(() => {
+                    if (pendingDeleteId === id) {
+                        pendingDeleteId = null;
+                        renderManagerList();
+                    }
+                }, 3500);
+                return;
+            }
+
+            pendingDeleteId = null;
+            try {
+                if (db && currentUser && !id.startsWith('local-')) {
+                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+                } else {
+                    productsList = productsList.filter(p => p.id !== id);
+                    renderAllProductsUI();
+                }
+                showToast('Đã xóa sản phẩm khỏi không gian trưng bày.');
+            } catch (err) {
+                console.error('Lỗi xóa sản phẩm:', err);
+                showToast('Không thể xóa sản phẩm lúc này.');
+            }
+        };
+
+        window.resetProductForm = function() {
+            document.getElementById('productForm').reset();
+            document.getElementById('editProductId').value = '';
+            document.getElementById('formTitle').textContent = 'Thêm Sản Phẩm Mới';
+            document.getElementById('cancelEditBtn').classList.add('hidden');
+            document.getElementById('saveProductBtn').textContent = 'Lưu & Đăng Lên Trang Trưng Bày';
+            window.renderCategorySpecificFields();
+            window.updateImagePreview('https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80');
+        };
+
+        window.renderCategorySpecificFields = function() {
+            const cat = document.getElementById('prodCategory').value;
+            const container = document.getElementById('dynamicCategoryFields');
+
+            if (cat === 'nuoc-hoa-nam' || cat === 'nuoc-hoa-nu') {
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1.5">
+                                <span>Độ lưu hương trên da</span>
+                                <span id="longevityValueLabel" style="color: var(--accent);">10 Giờ</span>
+                            </div>
+                            <input type="range" id="fieldLongevity" min="2" max="14" value="10"
+                                   oninput="document.getElementById('longevityValueLabel').textContent = this.value + ' Giờ'"
+                                   class="w-full accent-amber-500 cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Độ tỏa hương</label>
+                            <select id="fieldSillage" class="w-full rounded-xl px-3 py-2 text-xs sm:text-sm border focus:outline-none"
+                                    style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                                <option value="Tỏa hương gần (dịu nhẹ trên da)">Tỏa hương gần (Dịu nhẹ)</option>
+                                <option value="Tỏa hương vừa (1 - 1.5 mét)" selected>Tỏa hương vừa (1 - 1.5 mét)</option>
+                                <option value="Tỏa hương xa (bán kính trên 2 mét)">Tỏa hương xa (Trên 2 mét)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold block mb-1.5">Nhóm hương chủ đạo</label>
+                        <input type="text" id="fieldScentFamily" placeholder="VD: Hương Gỗ Phương Đông / Hương Hoa Cỏ"
+                               class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                               style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                        <div>
+                            <label class="text-[11px] font-semibold block mb-1">Tầng hương đầu</label>
+                            <input type="text" id="fieldTopNotes" placeholder="Cam Bergamot, Nghệ tây..."
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold block mb-1">Tầng hương giữa</label>
+                            <input type="text" id="fieldHeartNotes" placeholder="Trầm hương, Hoa hồng..."
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold block mb-1">Tầng hương cuối</label>
+                            <input type="text" id="fieldBaseNotes" placeholder="Hổ phách, Gỗ đàn hương..."
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                    </div>
+                `;
+            } else if (cat === 'mat-na') {
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Hoạt chất chính (cách nhau dấu phẩy)</label>
+                            <input type="text" id="fieldIngredients" placeholder="VD: Vitamin B5, Hyaluronic Acid, Peptide"
+                                   class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Kết cấu chất liệu mặt nạ</label>
+                            <input type="text" id="fieldTexture" placeholder="VD: Sợi sinh học Bio-Cellulose / Lụa Tencel"
+                                   class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Loại da phù hợp</label>
+                            <input type="text" id="fieldSkinType" placeholder="VD: Mọi loại da, da thiếu ẩm"
+                                   class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Hướng dẫn trải nghiệm</label>
+                            <input type="text" id="fieldRitual" placeholder="VD: Đắp thư giãn 15-20 phút"
+                                   class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                    </div>
+                `;
+            } else if (cat === 'may-loc-nuoc') {
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Số tấm điện cực</label>
+                            <input type="text" id="fieldPlates" placeholder="VD: 9 Tấm Titan phủ Bạch Kim"
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Chỉ số chống oxy hóa ORP</label>
+                            <input type="text" id="fieldOrp" placeholder="VD: -850 mV"
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold block mb-1.5">Chỉ số Hydro hòa tan</label>
+                            <input type="text" id="fieldHydrogen" placeholder="VD: 1600 ppb"
+                                   class="w-full rounded-xl px-3 py-2 text-xs border focus:outline-none"
+                                   style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold block mb-1.5">Dải pH hoạt động & công dụng nổi bật</label>
+                        <input type="text" id="fieldPhSummary" placeholder="VD: pH 3.5 - 10.5 (7 chế độ nước uống tươi, pha trà, làm đẹp Beauty)"
+                               class="w-full rounded-xl px-3.5 py-2 text-xs sm:text-sm border focus:outline-none"
+                               style="background: var(--bg-secondary); border-color: var(--border-color); color: var(--text-primary);">
+                    </div>
+                `;
+            }
+        };
+
+        // Nén & chuyển ảnh tải lên sang DataURL nhẹ nhàng để lưu mượt mà trên Firestore (<1MB)
+        window.handleImageUpload = function(event) {
+            const file = event.target.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 720;
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) {
+                            h = Math.round((h * maxDim) / w);
+                            w = maxDim;
+                        } else {
+                            w = Math.round((w * maxDim) / h);
+                            h = maxDim;
+                        }
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.78);
+                    document.getElementById('prodImageUrl').value = compressedDataUrl;
+                    window.updateImagePreview(compressedDataUrl);
+                    showToast('Đã tải & tối ưu hình ảnh thành công!');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.updateImagePreview = function(url) {
+            const preview = document.getElementById('imagePreview');
+            if (preview && url) {
+                preview.src = url;
+            }
+        };
+
+        window.saveShowroomAddressToCloud = async function() {
+            const val = document.getElementById('managerAddressInput').value.trim();
+            if (!val) return;
+            showroomAddress = val;
+            updateAddressDisplay(val);
+
+            if (db && currentUser) {
+                const settingsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'site_settings', 'global');
+                await setDoc(settingsDocRef, { address: val }, { merge: true });
+            }
+            showToast('Đã cập nhật địa chỉ Showroom công khai!');
+        };
+
+        window.saveGlobalDisplaySettings = async function() {
+            if (db && currentUser) {
+                const settingsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'site_settings', 'global');
+                await setDoc(settingsDocRef, {
+                    theme: currentTheme,
+                    festival: currentFestival,
+                    cardEffect: currentCardEffect
+                }, { merge: true });
+                showToast('Đã đồng bộ hiệu ứng lễ hội & bảng màu cho tất cả khách xem!');
+            } else {
+                showToast('Đã áp dụng giao diện trưng bày!');
+            }
+        };
+
+        function updateAddressDisplay(addr) {
+            const showcaseBadge = document.getElementById('showcaseAddressBadge');
+            const displayEl = document.getElementById('displayShowroomAddress');
+            const footerEl = document.getElementById('footerShowroomAddress');
+            if (showcaseBadge) showcaseBadge.textContent = addr;
+            if (displayEl) displayEl.textContent = addr;
+            if (footerEl) footerEl.textContent = addr;
+            const mgrInput = document.getElementById('managerAddressInput');
+            if (mgrInput) mgrInput.value = addr;
+            const inlineInput = document.getElementById('inlineAddressInput');
+            if (inlineInput) inlineInput.value = addr;
+        }
+
+        window.toggleInlineAddressEditor = function(forceState) {
+            const box = document.getElementById('inlineAddressEditor');
+            const input = document.getElementById('inlineAddressInput');
+            if (!box) return;
+            const shouldShow = typeof forceState === 'boolean' ? forceState : box.classList.contains('hidden');
+            if (shouldShow) {
+                box.classList.remove('hidden');
+                if (input) {
+                    input.value = showroomAddress;
+                    input.focus();
+                }
+            } else {
+                box.classList.add('hidden');
+            }
+        };
+
+        window.openDirectAddressEditor = function() {
+            const section = document.getElementById('showroom-location');
+            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.toggleInlineAddressEditor(true);
+        };
+
+        window.saveInlineShowroomAddress = async function() {
+            const input = document.getElementById('inlineAddressInput');
+            const val = input ? input.value.trim() : '';
+            if (!val) {
+                showToast('Vui lòng nhập địa chỉ Showroom trước khi lưu.');
+                return;
+            }
+            showroomAddress = val;
+            updateAddressDisplay(val);
+            window.toggleInlineAddressEditor(false);
+
+            if (db && currentUser) {
+                const settingsDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'site_settings', 'global');
+                await setDoc(settingsDocRef, { address: val }, { merge: true });
+            }
+            showToast('Đã cập nhật & đồng bộ địa chỉ Showroom cho toàn bộ khách xem!');
+        };
+
+        // =========================================================================
+        // 5. RENDER LƯỚI SẢN PHẨM & DANH SÁCH QUẢN TRỊ
+        // =========================================================================
+        function renderAllProductsUI() {
+            // Cập nhật số lượng trên từng tab bộ lọc
+            document.getElementById('count-all').textContent = productsList.length;
+            document.getElementById('count-nuoc-hoa-nam').textContent = productsList.filter(p => p.category === 'nuoc-hoa-nam').length;
+            document.getElementById('count-nuoc-hoa-nu').textContent = productsList.filter(p => p.category === 'nuoc-hoa-nu').length;
+            document.getElementById('count-mat-na').textContent = productsList.filter(p => p.category === 'mat-na').length;
+            document.getElementById('count-may-loc-nuoc').textContent = productsList.filter(p => p.category === 'may-loc-nuoc').length;
+
+            window.filterProducts(currentFilter);
+            renderManagerList();
+        }
+
+        function renderManagerList() {
+            const listEl = document.getElementById('managerProductList');
+            const badgeEl = document.getElementById('managerTotalBadge');
+            if (badgeEl) badgeEl.textContent = `${productsList.length} sản phẩm`;
+            if (!listEl) return;
+
+            listEl.innerHTML = productsList.map(item => `
+                <div class="p-3 rounded-2xl border flex items-center justify-between gap-3 transition-colors"
+                     style="background: var(--bg-primary); border-color: var(--border-color);">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img src="${item.image}" alt="${item.name}"
+                             onerror="this.src='https://placehold.co/100x100/18181b/d4af37?text=TV'"
+                             class="w-12 h-12 rounded-xl object-cover shrink-0 border" style="border-color: var(--border-color);">
+                        <div class="min-w-0">
+                            <span class="text-[10px] uppercase tracking-wider font-bold block" style="color: var(--accent);">
+                                ${item.categoryLabel}
+                            </span>
+                            <h5 class="text-sm font-bold truncate">${item.name}</h5>
+                            <p class="text-[11px] opacity-70 truncate">${item.subtitle}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button type="button" onclick="editProductItem('${item.id}')" title="Chỉnh sửa"
+                                class="p-2 rounded-xl border hover:opacity-80 transition-colors"
+                                style="border-color: var(--border-color); color: var(--accent);">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
+                        </button>
+                        <button type="button" onclick="requestDeleteProduct('${item.id}', this)" title="Xóa sản phẩm"
+                                class="p-2 rounded-xl border hover:bg-red-500/20 text-red-400 transition-colors"
+                                style="border-color: var(--border-color);">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        window.filterProducts = function(category) {
+            currentFilter = category;
+            updateFilterButtonsUI();
+
+            const grid = document.getElementById('productGrid');
+            const filtered = category === 'all'
+                ? productsList
+                : productsList.filter(p => p.category === category);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 rounded-3xl border border-dashed" style="border-color: var(--border-color);">
+                        <p class="font-serif-luxury text-2xl mb-2">Chưa có sản phẩm trong danh mục này</p>
+                        <button onclick="openProductManager('add')" class="mt-2 px-5 py-2.5 rounded-full text-xs font-bold"
+                                style="background: var(--accent); color: #09090b;">
+                            + Thêm Sản Phẩm Ngay
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map((product, index) => {
+                let highlightSpecHTML = '';
+
+                if (product.category === 'nuoc-hoa-nam' || product.category === 'nuoc-hoa-nu') {
+                    const hours = Number(product.longevityHours) || 10;
+                    const percent = Math.min(100, Math.round((hours / 14) * 100));
+                    highlightSpecHTML = `
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex items-center justify-between text-xs mb-1.5">
+                                <span style="color: var(--text-secondary);">Độ lưu hương</span>
+                                <span class="font-semibold" style="color: var(--accent);">${hours} - ${hours + 2} Giờ</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full overflow-hidden" style="background: rgba(128,128,128,0.2);">
+                                <div class="longevity-bar-fill h-full rounded-full" style="width: ${percent}%;"></div>
+                            </div>
+                            <p class="text-xs mt-2.5 line-clamp-1" style="color: var(--text-secondary);">
+                                <span class="font-medium" style="color: var(--text-primary);">Nhóm hương:</span> ${product.scentFamily || 'Hương Tinh Tuyển'}
+                            </p>
+                        </div>
+                    `;
+                } else if (product.category === 'mat-na') {
+                    const ings = (product.keyIngredients || '').split(',').map(s => s.trim()).filter(Boolean);
+                    highlightSpecHTML = `
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex flex-wrap gap-1.5 mb-2">
+                                ${ings.slice(0, 2).map(ing => `
+                                    <span class="text-[11px] px-2.5 py-0.5 rounded-full border"
+                                          style="border-color: var(--border-color); color: var(--accent);">
+                                        ${ing}
+                                    </span>
+                                `).join('')}
+                            </div>
+                            <p class="text-xs line-clamp-1" style="color: var(--text-secondary);">
+                                <span class="font-medium" style="color: var(--text-primary);">Dành cho:</span> ${product.skinType || 'Mọi loại da'}
+                            </p>
+                        </div>
+                    `;
+                } else if (product.category === 'may-loc-nuoc') {
+                    highlightSpecHTML = `
+                        <div class="mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex items-center justify-between text-xs mb-1.5">
+                                <span style="color: var(--text-secondary);">Chống oxy hóa / Hydro</span>
+                                <span class="font-semibold" style="color: var(--accent);">${product.orpRange || '-800 mV'} • ${product.hydrogen || '1500 ppb'}</span>
+                            </div>
+                            <p class="text-xs line-clamp-1" style="color: var(--text-secondary);">
+                                <span class="font-medium" style="color: var(--text-primary);">Điện cực:</span> ${product.plates || 'Titan phủ Bạch Kim'}
+                            </p>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <article onclick="openProductModal('${product.id}')"
+                             onmousemove="handleCardMouseMove(event, this)"
+                             onmouseleave="handleCardMouseLeave(this)"
+                             style="animation-delay: ${index * 60}ms;"
+                             class="product-card reveal-item is-visible group relative rounded-3xl overflow-hidden cursor-pointer flex flex-col justify-between">
+                        <div class="card-shine"></div>
+
+                        <!-- Khung hình ảnh nghệ thuật -->
+                        <div class="relative h-64 sm:h-72 overflow-hidden" style="background: ${product.fallbackBg || '#18181b'};">
+                            <img src="${product.image}"
+                                 alt="${product.name}"
+                                 onerror="this.style.display='none'"
+                                 class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+
+                            <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2 z-10">
+                                <span class="px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md bg-black/55 text-white border border-white/15">
+                                    ${product.categoryLabel}
+                                </span>
+                                <span class="px-3 py-1 rounded-full text-[11px] font-medium backdrop-blur-md"
+                                      style="background: var(--accent); color: #09090b;">
+                                    ${product.badge || 'Tinh Tuyển'}
+                                </span>
+                            </div>
+
+                            <div class="absolute bottom-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md bg-white/15 text-white border border-white/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+
+                        <!-- Nội dung tóm tắt sản phẩm (Tuyệt đối không giá bán) -->
+                        <div class="p-6 flex-1 flex flex-col justify-between relative z-10">
+                            <div>
+                                <h3 class="font-serif-luxury text-2xl font-bold leading-snug mb-1" style="color: var(--text-primary);">
+                                    ${product.name}
+                                </h3>
+                                <p class="text-xs font-medium mb-3" style="color: var(--accent);">
+                                    ${product.subtitle}
+                                </p>
+                                <p class="text-xs sm:text-sm leading-relaxed line-clamp-2" style="color: var(--text-secondary);">
+                                    ${product.description || ''}
+                                </p>
+                            </div>
+
+                            <div>
+                                ${highlightSpecHTML}
+                                <div class="mt-4 pt-3 flex items-center justify-between text-xs font-semibold uppercase tracking-wider"
+                                     style="color: var(--accent);">
+                                    <span>Khám Phá Chi Tiết</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        };
+
+        // =========================================================================
+        // 6. MODAL CHI TIẾT SẢN PHẨM CHUYÊN SÂU
+        // =========================================================================
+        const STANDARD_PH_LEVELS = [
+            { ph: 'pH 10.5', name: 'Nước Kiềm Mạnh', color: '#7e22ce', desc: 'Rửa sạch bề mặt rau củ quả, loại bỏ vị chát và tồn dư trên thực phẩm.' },
+            { ph: 'pH 9.5', name: 'Nước Ion Kiềm Cao', color: '#2563eb', desc: 'Nước uống hằng ngày giàu Hydro, pha trà, nấu súp giúp chiết xuất hương vị đậm đà.' },
+            { ph: 'pH 8.5', name: 'Nước Ion Kiềm Nhẹ', color: '#0ea5e9', desc: 'Nước uống lý tưởng cho người mới bắt đầu làm quen với nước ion kiềm.' },
+            { ph: 'pH 7.0', name: 'Nước Trung Tính Tinh Khiết', color: '#10b981', desc: 'Nước sạch giữ khoáng tự nhiên dùng để pha sữa cho trẻ nhỏ và uống thuốc.' },
+            { ph: 'pH 5.5', name: 'Nước Beauty Chăm Sóc Da', color: '#f59e0b', desc: 'Nước axit nhẹ cân bằng độ pH tự nhiên giúp se khít lỗ chân lông và làm mượt tóc.' },
+            { ph: 'pH 3.5', name: 'Nước Vệ Sinh Khử Khuẩn', color: '#ef4444', desc: 'Dùng vệ sinh dụng cụ nhà bếp, thớt, bát đĩa an toàn không hóa chất.' }
+        ];
+
+        window.openProductModal = function(productId) {
+            const product = productsList.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('productModalContent');
+            let detailedBodyHTML = '';
+
+            if (product.category === 'nuoc-hoa-nam' || product.category === 'nuoc-hoa-nu') {
+                const hours = Number(product.longevityHours) || 10;
+                const percent = Math.min(100, Math.round((hours / 14) * 100));
+                detailedBodyHTML = `
+                    <div class="space-y-5">
+                        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">${product.description}</p>
+                        <div class="p-4 sm:p-5 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs uppercase tracking-wider font-bold flex items-center gap-2" style="color: var(--accent);">
+                                    <i data-lucide="hourglass" class="w-4 h-4"></i>
+                                    <span>Biểu Đồ Độ Lưu Hương</span>
+                                </span>
+                                <span class="text-sm font-bold">${hours} - ${hours + 2} Giờ</span>
+                            </div>
+                            <div class="w-full h-2.5 rounded-full overflow-hidden mb-3" style="background: rgba(128,128,128,0.2);">
+                                <div class="longevity-bar-fill h-full rounded-full" style="width: ${percent}%;"></div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-2 border-t" style="border-color: var(--border-color);">
+                                <div><span class="opacity-70 block">Độ tỏa hương:</span><span class="font-medium">${product.sillage || 'Vừa phải'}</span></div>
+                                <div><span class="opacity-70 block">Nhóm hương:</span><span class="font-medium">${product.scentFamily || 'Tinh tuyển'}</span></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xs uppercase tracking-widest font-bold mb-2.5" style="color: var(--accent);">Tháp 3 Tầng Hương Nghệ Thuật</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 rounded-xl border flex items-start gap-3" style="border-color: var(--border-color); background: var(--bg-card);">
+                                    <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0" style="background: var(--accent-glow); color: var(--accent);">Hương Đầu</span>
+                                    <span class="text-xs sm:text-sm">${product.topNotes || 'Hương cam chanh & gia vị thanh mát'}</span>
+                                </div>
+                                <div class="p-3 rounded-xl border flex items-start gap-3" style="border-color: var(--border-color); background: var(--bg-card);">
+                                    <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0" style="background: var(--accent-glow); color: var(--accent);">Hương Giữa</span>
+                                    <span class="text-xs sm:text-sm">${product.heartNotes || 'Hương hoa cỏ & gỗ quý trung tâm'}</span>
+                                </div>
+                                <div class="p-3 rounded-xl border flex items-start gap-3" style="border-color: var(--border-color); background: var(--bg-card);">
+                                    <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold shrink-0" style="background: var(--accent-glow); color: var(--accent);">Hương Cuối</span>
+                                    <span class="text-xs sm:text-sm">${product.baseNotes || 'Hổ phách, xạ hương & gỗ đàn hương'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (product.category === 'mat-na') {
+                const ings = (product.keyIngredients || '').split(',').map(s => s.trim()).filter(Boolean);
+                detailedBodyHTML = `
+                    <div class="space-y-5">
+                        <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">${product.description}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-4 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                                <span class="text-[11px] uppercase tracking-wider font-bold block mb-1" style="color: var(--accent);">Loại Da Phù Hợp</span>
+                                <p class="text-xs sm:text-sm font-medium">${product.skinType || 'Mọi loại da'}</p>
+                            </div>
+                            <div class="p-4 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                                <span class="text-[11px] uppercase tracking-wider font-bold block mb-1" style="color: var(--accent);">Kết Cấu Mặt Nạ</span>
+                                <p class="text-xs sm:text-sm font-medium">${product.texture || 'Sợi sinh học ôm khít khuôn mặt'}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xs uppercase tracking-widest font-bold mb-2" style="color: var(--accent);">Hoạt Chất Tinh Tuyển</h4>
+                            <div class="flex flex-wrap gap-2">
+                                ${ings.map(ing => `
+                                    <span class="px-3.5 py-1.5 rounded-full text-xs font-medium border"
+                                          style="border-color: var(--accent); background: var(--accent-glow);">
+                                        ✦ ${ing}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                            <span class="text-xs font-bold block mb-1" style="color: var(--accent);">Nghi Thức Trải Nghiệm:</span>
+                            <p class="text-xs sm:text-sm" style="color: var(--text-secondary);">${product.ritual || 'Đắp thư giãn 15-20 phút sau bước làm sạch da.'}</p>
+                        </div>
+                    </div>
+                `;
+            } else if (product.category === 'may-loc-nuoc') {
+                detailedBodyHTML = `
+                    <div class="space-y-5">
+                        <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">${product.description}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                            <div class="p-3.5 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                                <span class="text-[10px] uppercase tracking-wider font-bold block mb-1" style="color: var(--accent);">Điện Cực</span>
+                                <p class="text-xs font-medium">${product.plates || 'Titan phủ Bạch Kim'}</p>
+                            </div>
+                            <div class="p-3.5 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                                <span class="text-[10px] uppercase tracking-wider font-bold block mb-1" style="color: var(--accent);">Chỉ Số ORP</span>
+                                <p class="text-xs font-medium">${product.orpRange || '-800 mV'}</p>
+                            </div>
+                            <div class="p-3.5 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                                <span class="text-[10px] uppercase tracking-wider font-bold block mb-1" style="color: var(--accent);">Hydro Hòa Tan</span>
+                                <p class="text-xs font-medium">${product.hydrogen || '1500 ppb'}</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 sm:p-5 rounded-2xl border" style="background: var(--bg-primary); border-color: var(--border-color);">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs uppercase tracking-wider font-bold" style="color: var(--accent);">
+                                    Mô Phỏng Tương Tác Các Mức Nước pH
+                                </span>
+                                <span class="text-[11px] opacity-70">Chạm chọn mức pH</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mb-3.5">
+                                ${STANDARD_PH_LEVELS.map((lvl, idx) => `
+                                    <button type="button" onclick="selectPhLevel(${idx})" data-ph-idx="${idx}"
+                                            class="ph-select-btn px-3 py-1.5 rounded-full text-xs font-bold text-white transition-transform hover:scale-105 ${idx === 1 ? 'ring-2 ring-white scale-105' : 'opacity-80'}"
+                                            style="background-color: ${lvl.color};">
+                                        ${lvl.ph}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div id="phDetailBox" class="p-3.5 rounded-xl border" style="border-color: var(--border-color); background: var(--bg-card);">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="w-3 h-3 rounded-full" style="background-color: ${STANDARD_PH_LEVELS[1].color};"></span>
+                                    <span class="text-sm font-bold">${STANDARD_PH_LEVELS[1].ph} — ${STANDARD_PH_LEVELS[1].name}</span>
+                                </div>
+                                <p class="text-xs sm:text-sm" style="color: var(--text-secondary);">${STANDARD_PH_LEVELS[1].desc}</p>
+                            </div>
+                        </div>
+                        ${product.phSummary ? `<p class="text-xs" style="color: var(--text-secondary);"><strong style="color: var(--text-primary);">Tổng quan dải pH:</strong> ${product.phSummary}</p>` : ''}
+                    </div>
+                `;
+            }
+
+            content.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <div class="lg:col-span-5 relative min-h-[280px] lg:min-h-full" style="background: ${product.fallbackBg || '#18181b'};">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider backdrop-blur-md bg-black/55 text-white border border-white/15">
+                                ${product.categoryLabel}
+                            </span>
+                        </div>
+                        <div class="absolute bottom-5 left-5 right-5 text-white">
+                            <span class="text-[11px] uppercase tracking-widest opacity-80 block mb-1">Trưng Bày Độc Quyền Tại</span>
+                            <span class="font-serif-luxury text-xl font-bold">Đại Lý Phân Phối Thịnh Vượng</span>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-4 mb-4">
+                                <div>
+                                    <span class="text-xs font-semibold uppercase tracking-widest block mb-1" style="color: var(--accent);">
+                                        ${product.badge || 'Tinh Tuyển'}
+                                    </span>
+                                    <h3 class="font-serif-luxury text-3xl sm:text-4xl font-bold leading-tight">${product.name}</h3>
+                                    <p class="text-xs sm:text-sm mt-1" style="color: var(--accent);">${product.subtitle}</p>
+                                </div>
+                                <button onclick="closeProductModal()"
+                                        class="p-2.5 rounded-full border shrink-0 transition-transform hover:rotate-90"
+                                        style="border-color: var(--border-color); background: var(--bg-primary);">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            ${detailedBodyHTML}
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                             style="border-color: var(--border-color); color: var(--text-secondary);">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="map-pin" class="w-4 h-4 shrink-0" style="color: var(--accent);"></i>
+                                <span class="line-clamp-1">${showroomAddress}</span>
+                            </div>
+                            <button onclick="closeProductModal()"
+                                    class="px-5 py-2.5 rounded-full font-semibold self-start sm:self-auto shrink-0"
+                                    style="background: var(--accent); color: #09090b;">
+                                Đóng Cửa Sổ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+
+            requestAnimationFrame(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            });
+        };
+
+        window.selectPhLevel = function(idx) {
+            const lvl = STANDARD_PH_LEVELS[idx];
+            if (!lvl) return;
+            const detailBox = document.getElementById('phDetailBox');
+            if (detailBox) {
+                detailBox.innerHTML = `
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-3 h-3 rounded-full" style="background-color: ${lvl.color};"></span>
+                        <span class="text-sm font-bold">${lvl.ph} — ${lvl.name}</span>
+                    </div>
+                    <p class="text-xs sm:text-sm" style="color: var(--text-secondary);">${lvl.desc}</p>
+                `;
+            }
+            document.querySelectorAll('.ph-select-btn').forEach(btn => {
+                const isSelected = Number(btn.getAttribute('data-ph-idx')) === idx;
+                btn.classList.toggle('ring-2', isSelected);
+                btn.classList.toggle('ring-white', isSelected);
+                btn.classList.toggle('scale-105', isSelected);
+                btn.classList.toggle('opacity-80', !isSelected);
+            });
+        };
+
+        window.closeProductModal = function() {
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('productModalContent');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 250);
+        };
+
+        // =========================================================================
+        // 7. STUDIO TRANG TRÍ & HIỆU ỨNG LỄ HỘI (NOEL, TẾT NGUYÊN ĐÁN, BẢNG MÀU)
+        // =========================================================================
+        window.setFestivalMode = function(mode, autoSwitchTheme = false) {
+            currentFestival = mode;
+            document.body.setAttribute('data-festival', mode);
+
+            const tetDecor = document.getElementById('tetDecorations');
+            const xmasDecor = document.getElementById('christmasDecorations');
+            const heroBadge = document.getElementById('heroFestivalBadge');
+            const headerSub = document.getElementById('headerSubtitleBadge');
+
+            tetDecor.classList.add('hidden');
+            tetDecor.classList.remove('flex');
+            xmasDecor.classList.add('hidden');
+            xmasDecor.classList.remove('flex');
+
+            if (mode === 'christmas') {
+                xmasDecor.classList.remove('hidden');
+                xmasDecor.classList.add('flex');
+                heroBadge.textContent = 'Mùa Giáng Sinh An Lành & Ấm Áp • Triển Lãm Tinh Tuyển';
+                headerSub.textContent = 'Mùa Lễ Hội Giáng Sinh';
+                if (autoSwitchTheme) window.applyTheme('noel-pine', false);
+            } else if (mode === 'tet') {
+                tetDecor.classList.remove('hidden');
+                tetDecor.classList.add('flex');
+                heroBadge.textContent = 'Chúc Mừng Năm Mới • Xuân Thịnh Vượng & Phú Quý';
+                headerSub.textContent = 'Đón Xuân Thịnh Vượng';
+                if (autoSwitchTheme) window.applyTheme('tet-royal', false);
+            } else if (mode === 'aurora') {
+                heroBadge.textContent = 'Không Gian Cực Quang Nghệ Thuật • Triển Lãm Độc Bản';
+                headerSub.textContent = 'Triển Lãm Nghệ Thuật';
+            } else {
+                heroBadge.textContent = 'Không Gian Triển Lãm Sản Phẩm Tinh Tuyển';
+                headerSub.textContent = 'Triển Lãm Trực Tuyến';
+                if (autoSwitchTheme && (currentTheme === 'tet-royal' || currentTheme === 'noel-pine')) {
+                    window.applyTheme('gold-obsidian', false);
+                }
+            }
+
+            document.querySelectorAll('.festival-btn').forEach(btn => {
+                const active = btn.getAttribute('data-festival-btn') === mode;
+                btn.style.borderColor = active ? 'var(--accent)' : 'var(--border-color)';
+                btn.style.background = active ? 'var(--accent-glow)' : 'transparent';
+            });
+
+            rebuildFestivalParticles();
+        };
+
+        window.applyTheme = function(themeKey) {
+            const theme = THEMES[themeKey];
+            if (!theme) return;
+            currentTheme = themeKey;
+            const root = document.documentElement;
+            Object.keys(theme).forEach(key => {
+                if (key.startsWith('--')) root.style.setProperty(key, theme[key]);
+            });
+
+            document.querySelectorAll('.theme-preset-btn').forEach(btn => {
+                const isSelected = btn.getAttribute('data-theme-btn') === themeKey;
+                btn.style.borderColor = isSelected ? 'var(--accent)' : 'var(--border-color)';
+                btn.style.background = isSelected ? 'var(--accent-glow)' : 'transparent';
+                const check = btn.querySelector('.check-icon');
+                if (check) check.style.opacity = isSelected ? '1' : '0';
+            });
+
+            updateFilterButtonsUI();
+        };
+
+        window.setCardEffect = function(effect) {
+            currentCardEffect = effect;
+            document.body.setAttribute('data-card-effect', effect);
+            document.querySelectorAll('.card-effect-btn').forEach(btn => {
+                const active = btn.getAttribute('data-card-btn') === effect;
+                btn.style.borderColor = active ? 'var(--accent)' : 'var(--border-color)';
+                btn.style.background = active ? 'var(--accent-glow)' : 'transparent';
+            });
+        };
+
+        function updateFilterButtonsUI() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-filter') === currentFilter;
+                if (isActive) {
+                    btn.style.background = 'linear-gradient(135deg, var(--accent), var(--accent-light))';
+                    btn.style.color = '#09090b';
+                    btn.style.borderColor = 'var(--accent)';
+                    btn.style.boxShadow = '0 8px 25px var(--accent-glow)';
+                } else {
+                    btn.style.background = 'var(--bg-card)';
+                    btn.style.color = 'var(--text-primary)';
+                    btn.style.borderColor = 'var(--border-color)';
+                    btn.style.boxShadow = 'none';
+                }
+            });
+        }
+
+        window.navigateToCategory = function(category) {
+            window.filterProducts(category);
+            document.getElementById('showcase').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.toggleCustomizer = function() {
+            const panel = document.getElementById('customizerPanel');
+            const overlay = document.getElementById('customizerOverlay');
+            const isOpen = !panel.classList.contains('translate-x-full');
+
+            if (isOpen) {
+                panel.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            } else {
+                overlay.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    overlay.classList.remove('opacity-0');
+                    panel.classList.remove('translate-x-full');
+                });
+            }
+        };
+
+        window.openProductManager = function(mode) {
+            const modal = document.getElementById('managerModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            if (mode === 'add') window.resetProductForm();
+            renderManagerList();
+            lucide.createIcons();
+        };
+
+        window.closeProductManager = function() {
+            const modal = document.getElementById('managerModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        window.switchManagerTab = function(tab) {
+            const prodSec = document.getElementById('managerProductsSection');
+            const addrSec = document.getElementById('managerAddressSection');
+            const btnProd = document.getElementById('mgrTabProducts');
+            const btnAddr = document.getElementById('mgrTabAddress');
+
+            if (tab === 'products') {
+                prodSec.classList.remove('hidden');
+                addrSec.classList.add('hidden');
+                btnProd.style.background = 'var(--accent)';
+                btnProd.style.color = '#09090b';
+                btnAddr.style.background = 'var(--bg-primary)';
+                btnAddr.style.color = 'var(--text-primary)';
+            } else {
+                prodSec.classList.add('hidden');
+                addrSec.classList.remove('hidden');
+                btnAddr.style.background = 'var(--accent)';
+                btnAddr.style.color = '#09090b';
+                btnProd.style.background = 'var(--bg-primary)';
+                btnProd.style.color = 'var(--text-primary)';
+            }
+        };
+
+        window.handleCardMouseMove = function(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+
+            if (currentCardEffect === 'tilt') {
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            }
+        };
+
+        window.handleCardMouseLeave = function(card) {
+            if (currentCardEffect === 'tilt') {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            }
+        };
+
+        function showToast(msg) {
+            const banner = document.getElementById('toastBanner');
+            document.getElementById('toastMessage').textContent = msg;
+            banner.classList.remove('opacity-0', 'translate-y-4');
+            banner.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                banner.classList.remove('opacity-100', 'translate-y-0');
+                banner.classList.add('opacity-0', 'translate-y-4');
+            }, 3200);
+        }
+
+        // =========================================================================
+        // 8. HỆ THỐNG CANVAS LỄ HỘI (BỤI VÀNG / TUYẾT RƠI NOEL / HOA MAI ĐÀO & PHÁO HOA TẾT)
+        // =========================================================================
+        let canvasParticles = [];
+        let fireworks = [];
+        let canvasWidth = window.innerWidth;
+        let canvasHeight = window.innerHeight;
+
+        function rebuildFestivalParticles() {
+            canvasWidth = window.innerWidth;
+            canvasHeight = window.innerHeight;
+            const baseCount = Math.min(75, Math.floor((canvasWidth * canvasHeight) / 19000));
+
+            if (currentFestival === 'christmas') {
+                // Tuyết rơi đa tầng 3D
+                canvasParticles = Array.from({ length: baseCount + 25 }, () => ({
+                    type: 'snow',
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    radius: Math.random() * 3.4 + 1.2,
+                    vy: Math.random() * 1.3 + 0.5,
+                    vx: (Math.random() - 0.5) * 0.6,
+                    sway: Math.random() * Math.PI * 2,
+                    alpha: Math.random() * 0.75 + 0.25
+                }));
+            } else if (currentFestival === 'tet') {
+                // Cánh hoa mai vàng & hoa đào hồng bay bổng
+                canvasParticles = Array.from({ length: baseCount }, () => ({
+                    type: Math.random() > 0.45 ? 'mai' : 'dao',
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    size: Math.random() * 6 + 4.5,
+                    vy: Math.random() * 1.15 + 0.45,
+                    vx: Math.random() * 0.9 - 0.25,
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.04,
+                    sway: Math.random() * Math.PI * 2
+                }));
+            } else {
+                // Hạt bụi vàng ánh kim mặc định
+                canvasParticles = Array.from({ length: baseCount }, () => ({
+                    type: 'gold',
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    radius: Math.random() * 2.2 + 0.7,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: -Math.random() * 0.45 - 0.12,
+                    alpha: Math.random() * 0.7 + 0.2,
+                    pulse: Math.random() * Math.PI * 2
+                }));
+            }
+        }
+
+        function spawnTetFirework() {
+            const x = canvasWidth * (0.15 + Math.random() * 0.7);
+            const y = canvasHeight * (0.12 + Math.random() * 0.35);
+            const colors = ['#fbbf24', '#f87171', '#fef08a', '#fb7185', '#f59e0b'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const sparks = [];
+            const count = 28;
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 * i) / count;
+                const speed = 1.2 + Math.random() * 2.2;
+                sparks.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    alpha: 1,
+                    color
+                });
+            }
+            fireworks.push(sparks);
+        }
+
+        function initFestivalCanvas() {
+            const canvas = document.getElementById('festivalCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            window.addEventListener('resize', () => {
+                canvasWidth = canvas.width = window.innerWidth;
+                canvasHeight = canvas.height = window.innerHeight;
+                rebuildFestivalParticles();
+            });
+
+            rebuildFestivalParticles();
+
+            function animate() {
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+                for (const p of canvasParticles) {
+                    if (p.type === 'snow') {
+                        p.sway += 0.02;
+                        p.x += p.vx + Math.sin(p.sway) * 0.45;
+                        p.y += p.vy;
+                        if (p.y > canvasHeight + 10) {
+                            p.y = -10;
+                            p.x = Math.random() * canvasWidth;
+                        }
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                        ctx.fill();
+                    } else if (p.type === 'mai' || p.type === 'dao') {
+                        p.sway += 0.025;
+                        p.x += p.vx + Math.sin(p.sway) * 0.7;
+                        p.y += p.vy;
+                        p.rotation += p.rotSpeed;
+
+                        if (p.y > canvasHeight + 15) {
+                            p.y = -15;
+                            p.x = Math.random() * canvasWidth;
+                        }
+                        if (p.x > canvasWidth + 15) p.x = -15;
+
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate(p.rotation);
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, p.size, p.size * 0.58, 0, 0, Math.PI * 2);
+                        ctx.fillStyle = p.type === 'mai' ? 'rgba(251, 191, 36, 0.85)' : 'rgba(244, 114, 182, 0.85)';
+                        ctx.fill();
+                        ctx.restore();
+                    } else {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.pulse += 0.025;
+                        if (p.y < -10) {
+                            p.y = canvasHeight + 10;
+                            p.x = Math.random() * canvasWidth;
+                        }
+                        const a = p.alpha * (0.65 + 0.35 * Math.sin(p.pulse));
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(235, 198, 88, ${a})`;
+                        ctx.fill();
+                    }
+                }
+
+                // Pháo hoa ánh kim nhẹ nhàng trên vùng trang bìa khi bật chế độ Tết
+                if (currentFestival === 'tet' && window.scrollY < canvasHeight * 0.8) {
+                    if (Math.random() < 0.022 && fireworks.length < 4) {
+                        spawnTetFirework();
+                    }
+                    for (let i = fireworks.length - 1; i >= 0; i--) {
+                        const group = fireworks[i];
+                        let alive = false;
+                        for (const s of group) {
+                            s.x += s.vx;
+                            s.y += s.vy;
+                            s.vy += 0.02;
+                            s.alpha -= 0.016;
+                            if (s.alpha > 0) {
+                                alive = true;
+                                ctx.beginPath();
+                                ctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
+                                ctx.fillStyle = s.color;
+                                ctx.globalAlpha = s.alpha;
+                                ctx.fill();
+                            }
+                        }
+                        ctx.globalAlpha = 1;
+                        if (!alive) fireworks.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Parallax nhẹ trên Trang Bìa
+        document.addEventListener('mousemove', (e) => {
+            const heroContent = document.getElementById('heroParallaxContent');
+            if (!heroContent || window.scrollY > window.innerHeight) return;
+            const moveX = (e.clientX / window.innerWidth - 0.5) * -12;
+            const moveY = (e.clientY / window.innerHeight - 0.5) * -12;
+            heroContent.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        });
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+        }
+
+        // Khởi chạy toàn bộ hệ thống khi tải trang
+        window.onload = function () {
+            lucide.createIcons();
+            window.applyTheme('gold-obsidian');
+            window.setFestivalMode('luxury', false);
+            window.setCardEffect('tilt');
+            window.renderCategorySpecificFields();
+            updateAddressDisplay(DEFAULT_ADDRESS);
+            initFestivalCanvas();
+            initScrollReveal();
+            initFirebaseRealtime();
+        };
+    </script>
+</body>
+</html>
